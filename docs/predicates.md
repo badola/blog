@@ -1,5 +1,5 @@
 ## Predicates
-[Home Index](/README.md)  
+[Home Index](../README.md)  
 As [wikipedia](https://en.wikipedia.org/wiki/Predicate_(mathematical_logic)) states :
 > In mathematical logic, a predicate is commonly understood to be a Boolean-valued function P: X→ {true, false}, called the predicate on X.  
 >
