@@ -1,5 +1,5 @@
 ## single event handler
-[Home](/Readme.md)  
+[Home Index](/README.md)  
 Let us have a function, your event handler which will take a [`predicate`](/docs/predicates.md) and two functions namely `on_sucess` and `on_error`.
 
 If the `test_predicate` returns true then `on_success` shall be invoked, else `on_error` would be invoked.
