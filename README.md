@@ -1,37 +1,25 @@
-## Welcome to GitHub Pages
+## Remember Remember the Rule of Five
 
-You can use the [editor on GitHub](https://github.com/badola/blog/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+### C++
+C++ is powerful yet obnoxious for beginners. I had a hard time to get it to work as per what I find amusing. It dawns too late, with a language like C++, that programming can be fun.
+But for those who are sufferring there with C++, hang in there. It will be fun, after 10 years.
+After 10 years, you will have a statically typed language at your disposal with type-safety as your guard.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+So **why** should I write this blog ?
+There are a lot of things that I amuse me from other languages, which I wished was there in C++.
+They are there, but the construction is generally awkward and hard to grasp.
+I would try to make things simple, for everyone, especially for _future me_.
 
-### Markdown
+So **how** should I write this blog?
+A tutorial that is lucid.
+So that I can refer it myself in the future and understand.
+A tutorial that can be shared with others, to help them understand concepts.
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+So **what** should be in this blog ?
+Compare features from other languages, that are amusingly easy to use.
+Think of how to write the same in a strong typed, statically typed, type-safe language, mostly C++.
+Write its C++ equivalent code, and then test it.
+And then store it in a blog.
 
-```markdown
-Syntax highlighted code block
 
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/badola/blog/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+[GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
