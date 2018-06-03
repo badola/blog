@@ -1,4 +1,5 @@
 ## Remember Remember the Rule of Five
+If you are viewing this on github, better use [github.io](https://badola.github.io/blog/) to view this.
 
 ### C++
 C++ is powerful yet obnoxious for beginners.  
@@ -26,5 +27,6 @@ Think of how to write the same in a strong typed, statically typed, type-safe la
 Write its C++ equivalent code, and then test it.  
 And then store it in a blog.
 
-
-[Event Handler and Predicates](/docs/event_handler_and_predicates.md).
+**Building blocks -**
+1. [Predicates](/docs/predicates.md).
+1. [Event Handler using Predicates](/docs/event_handler_and_predicates.md).
