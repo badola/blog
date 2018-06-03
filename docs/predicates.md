@@ -14,7 +14,7 @@ We will assume **predicate** is a **function** which returns a **boolean** value
 
 So based on this assumption let us create our first predicate : `is_even(int)`
 
-```c++
+```cpp
 // is_even predicate
 bool is_even(int num) 
 { 
