@@ -25,4 +25,4 @@ Write its C++ equivalent code, and then test it.
 And then store it in a blog.
 
 
-[Event Handler and Predicates](/https://badola.github.io/blog/docs/event_handler_and_predicates.md).
+[Event Handler and Predicates](/docs/event_handler_and_predicates.md).
