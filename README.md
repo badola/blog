@@ -25,4 +25,4 @@ Write its C++ equivalent code, and then test it.
 And then store it in a blog.
 
 
-[GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+[Event Handler and Predicates](/https://badola.github.io/blog/docs/event_handler_and_predicates.md).
