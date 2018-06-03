@@ -56,7 +56,7 @@ Moreover, another wrapper can be written on top of `single_event_handler` which 
 But we will have to create another function `register_event` so that it can be used effectively.  
 We will cover it in some other lecture.
 
-Here is the full working code (compiled using _g++ -std=c++11_)
+Here is the full working code (compiled using `g++ -std=c++11`)
 ```C++
 #include <iostream>
 
