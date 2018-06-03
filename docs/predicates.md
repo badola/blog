@@ -12,7 +12,7 @@ As [wikipedia](https://en.wikipedia.org/wiki/Predicate_(mathematical_logic)) sta
 So for the programming literates, who don't understand mathematics much(just like me) -   
 We will assume **predicate** is a **function** which returns a **boolean** value.
 
-So based on this assumption let us create our first predicate : **is_even(number)**
+So based on this assumption let us create our first predicate : `is_even(int)`
 
 ```c++
 // is_even predicate
@@ -21,5 +21,5 @@ bool is_even(int num)
     return !(num % 2); 
 }
 ```
-is_even is a predicate, that takes an integer and tell whether it is even or not.
+`is_even` is a predicate, that takes an integer and tell whether it is even or not.
 
