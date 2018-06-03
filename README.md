@@ -29,4 +29,4 @@ And then store it in a blog.
 
 **Building blocks -**
 1. [Predicates](/docs/predicates.md).
-1. [Event Handler using Predicates](/docs/event_handler_and_predicates.md).
+1. [Single Event Handler using Predicates](/docs/single_event_handler_using_predicates.md).
