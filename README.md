@@ -1,4 +1,6 @@
 ## Remember Remember the Rule of Five
+> A desperate disease requires a dangerous remedy.  - Guy Fawkes
+
 If you are viewing this on github, better use [github.io](https://badola.github.io/blog/) to view this.
 
 ### C++
@@ -10,7 +12,7 @@ After 10 years, you will have a statically typed language at your disposal with 
 
 So **why** should I write this blog ?
 
-There are a lot of things that I amuse me from other languages, which I wished was there in C++.  
+There are a lot of things, from languages other than C++, which amuse me and I wish were there in C++.  
 They are there, but the construction is generally awkward and hard to grasp.  
 I would try to make things simple, for everyone, especially for _future me_.
 
