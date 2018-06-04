@@ -1,11 +1,18 @@
-## Remember Remember the Rule of Five
+## Remember Remember the C++11
 > A desperate disease requires a dangerous remedy.  - Guy Fawkes
 
 If you are viewing this on github, better use [github.io](https://badola.github.io/blog/) to view this.
 
+> Remember, remember!  
+> The cppcon starts in November,  
+> The metaprogramming, closures and plot;  
+> I know of no reason  
+> Why the Concepts and Expressions  
+> Should ever be forgot! 
+    
 ### C++
 C++ is powerful yet obnoxious for beginners.  
-I had a hard time to get it to work as per what I find amusing.  
+Everyone had a hard time to get it to work as per what they find amusing.  
 It dawns too late, with a language like C++, that programming can be fun.  
 But for those who are sufferring there with C++, hang in there. It will be fun, after 10 years.  
 After 10 years, you will have a statically typed language at your disposal with type-safety as your guard.  
