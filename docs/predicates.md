@@ -23,3 +23,7 @@ bool is_even(int num)
 ```
 `is_even` is a predicate, that takes an integer and tell whether it is even or not.
 
+A predicate is used in decision making.
+A powerful system needs to have well designed **atomic** predicates.
+
+We will observe it soon why atomicity is important, and how composition is going to be our best friend in future.
