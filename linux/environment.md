@@ -63,8 +63,8 @@ So this draws us to our next question.
 #### What are the various linux environments? What all variables do they depend upon?
 There is no direct answer to this.  
 There is no hard-coded global definition of environment.  
-Every organisation, have their own set of environments, that are created for internal use.  
-All of the organisation's members are well aware of the `state` of `variables` under different environments.  
+Every organization, have their own set of environments, that are created for internal use.  
+All of the organization's members are well aware of the `state` of `variables` under different environments.  
 
 Let us assume an organization which has 3 environments.  
  - `development` : where development happen
@@ -93,13 +93,19 @@ Here is the `state` of `environment variables` under various `environment`:
 |mail_id |gtock.dev@gmail.com|gtock.test@gmail.com|gtock.prod@gmail.com|
 |limit   |200                |200                 |200                 |
 
-Any variable that is a potential candidate in affecting the `environment` is known as an `environment variable`.
+Any variable that is a potential candidate in affecting the `environment` is known as an `environment variable`.  
+For our sample organization, `log_dir` is an environment variable. Since on changing the variable, the logs would be written in some different place.
 
-In linux, you can list all the *environment variables* using the command `env`
+> Note :  
+> In linux, you can list all the currently set *environment variables* using the command `env`
 
 
 
-use some common env variables (PATH, LD_LIBRARY_PATH, PWD, USER, SHELL, etc)  
-What is an environment? Why do we use them?  
-How to switch between environments  
+#### What is the use of environment variables? Why one should use them?
+#### How to set environment variables?
+#### How to switch between environments  
+
+#### Some common env variables 
+(PATH, LD_LIBRARY_PATH, PWD, USER, SHELL, etc)  
+
 
