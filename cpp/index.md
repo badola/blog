@@ -1,8 +1,6 @@
 [Home Index](/README.md)  
 
-## Remember Remember the C++11
-> A desperate disease requires a dangerous remedy.  - Guy Fawkes
-
+## Remember Remember the C++11  
 > Remember, remember!  
 > The cppcon starts in November,  
 > The metaprogramming, closures and plot;  
