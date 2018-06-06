@@ -24,6 +24,7 @@ What is **weather** ?
 So it means there are a number of factors on which we decide on how the weather is. 
 
 So if we find the below configuration one day, what can you comment about the weather?
+
 | Variable           | State         |
 |:------------------:|:-------------:|
 |temperature         | 30 deg.celsius|
@@ -38,6 +39,7 @@ Answer => It is a `thunder-storm`.
 
 
 And if we find the below configuration one day, what can you comment about the weather?
+
 | Variable           | State         |
 |:------------------:|:-------------:|
 |temperature         | 39 deg.celsius|
