@@ -77,6 +77,7 @@ Let us assume an organization which has 3 environments.
 
 And they have defined their own variables for various purposes -
 1. *db_dir* : directory name containing database files and libraries
+1. *db_addr* : server-address alias for the actual database hosted
 1. *log_dir* : directory name where application logs are to be written 
 1. *exe_dir* : directory name where the applications are deployed
 1. *data_dir* : directory name from where data is to be read/written
@@ -89,6 +90,7 @@ Here is the `state` of `environment variables` under various `environment`:
 |variable|development        |testing             |production          |
 |:------:|:-----------------:|:------------------:|:------------------:|
 |db_dir  |/usr/lib/db/dev    |/usr/lib/db/test    |/usr/lib/db/prod    |
+|db_addr |192.208.34.34:7098 |192.208.35.34:1998  |192.200.34.34:1993  |
 |log_dir |/usr/log/dev       |/usr/log/test       |/usr/log/prod       |
 |exe_dir |/usr/bin/dev       |/usr/bin/test       |/usr/bin/prod       |
 |data_dir|/usr/share/data/dev|/usr/share/data/test|/usr/share/data/prod|
@@ -105,6 +107,9 @@ For our sample organization, `log_dir` is an environment variable. Since on chan
 
 
 ### What is the use of environment variables? Why one should use them?
+For writing scripts that will adapt dynamically on changing the environment.  
+In script one has to use `$db_addr` and the script will automatically connect to production database on production environment, development database on development environment, and so on.  
+
 ### How to set environment variables?
 ### How to switch between environments  
 
