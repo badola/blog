@@ -56,13 +56,39 @@ We need one **short and globally understood** terminology.
 It is a `thunder-storm` day.
 
 So as you can see, we have to give **a collective name to the state of weather variables**, for our ease of use.  
-
 This **collective name** is called as an `environment` in linux.
+
 
 So this draws us to our next question.  
 #### What are the various linux environments? What all variables do they depend upon?
-There is no direct answer to this.
-Every organisation, have their own set of environments.
+There is no direct answer to this.  
+There is no hard-coded global definition of environment.  
+Every organisation, have their own set of environments, that are created for internal use.  
+All of the organisation's members are well aware of the `state` of `variables` under different environments.  
+
+Let us assume an organization which has 3 environments.  
+ - `development` : where development happen
+ - `testing`     : for testing of the developed applications and catching bugs
+ - `production`  : finally where the code is installed to be used by organisation
+ 
+And they have defined their own variables for various purposes -
+1. *db_dir* : directory name containing database files and libraries
+1. *log_dir* : directory name where application logs are to be written 
+1. *exe_dir* : directory name where the applications are deployed
+1. *data_dir* : directory name from where data is to be read/written
+1. *tmp_dir* : a directory for creating intermediate temporary files
+1. *mail_id* : email-id on which reports are to be sent
+ 
+|variable|development        |testing             |production          |
+|:------:|:-----------------:|:------------------:|:------------------:|
+|db_dir  |/usr/lib/db/dev    |/usr/lib/db/test    |/usr/lib/db/prod    |
+|log_dir |/usr/log/dev       |/usr/log/test       |/usr/log/prod       |
+|exe_dir |/usr/bin/dev       |/usr/bin/test       |/usr/bin/prod       |
+|data_dir|/usr/share/data/dev|/usr/share/data/test|/usr/share/data/prod|
+|tmp_dir |/tmp/dev           |/tmp/test           |/tmp/prod           |
+|mail_id |gtock.dev@gmail.com|gtock.test@gmail.com|gtock.prod@gmail.com|
+
+So now what is the next step?
 
 
 Environment  
