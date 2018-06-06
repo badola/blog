@@ -1,4 +1,5 @@
-[Linux Home Index](/linux/index.md)
+[Home Index](/README.md)  
+[Linux Home Index](/linux/index.md)  
 
 ## The Linux Beginner's Course 
 
