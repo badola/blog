@@ -1,15 +1,9 @@
 ## Linux and Environment
 
-Environment  
-What is an environment variable  
-use some common env variables (PATH, LD_LIBRARY_PATH, PWD, USER, SHELL, etc)  
-What is an environment? Why do we use them?  
-How to switch between environments  
-
-So what is *environment* in general?  
+#### So what is *environment* in general?  
 Let us get out of the computer world and first talk about *weather*.  
 
-What is **weather** ?
+#### What is **weather** ?
 > Weather is basically the way the atmosphere is behaving, mainly with respect to its effects upon life and human activities. Most people think of weather in terms of:
 > 1. temperature
 > 1. humidity
@@ -66,4 +60,14 @@ So as you can see, we have to give **a collective name to the state of weather v
 This **collective name** is called as an `environment` in linux.
 
 So this draws us to our next question.  
+#### What are the various linux environments? What all variables do they depend upon?
+There is no direct answer to this.
+Every organisation, have their own set of environments.
+
+
+Environment  
+What is an environment variable  
+use some common env variables (PATH, LD_LIBRARY_PATH, PWD, USER, SHELL, etc)  
+What is an environment? Why do we use them?  
+How to switch between environments  
 
