@@ -15,7 +15,7 @@ Let us get out of the computer world and first talk about *weather*.
 > 1. atmospheric pressure, as in high and low pressure  
 > Source : https://www.nasa.gov/mission_pages/noaa-n/climate/climate_weather.html
 
-So it means there are a number of factors on which we decide on how the weather is. 
+So it means there are a number of factors on which we decide - "how the weather is". 
 
 So if we find the below configuration one day, what can you comment about the weather?
 
