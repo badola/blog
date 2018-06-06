@@ -3,7 +3,7 @@
 
 ## Linux Environment
 
-#### So what is *environment* in general?  
+### So what is *environment* in general?  
 Let us get out of the computer world and first talk about *weather*.  
 
 #### What is **weather** ?
@@ -63,7 +63,7 @@ This **collective name** is called as an `environment` in linux.
 
 
 So this draws us to our next question.  
-#### What are the various linux environments? What all variables do they depend upon?
+### What are the various linux environments? What all variables do they depend upon?
 There is no direct answer to this.  
 There is no hard-coded global definition of environment.  
 Every organization, have their own set of environments, that are created for internal use.  
@@ -104,11 +104,11 @@ For our sample organization, `log_dir` is an environment variable. Since on chan
 
 
 
-#### What is the use of environment variables? Why one should use them?
-#### How to set environment variables?
-#### How to switch between environments  
+### What is the use of environment variables? Why one should use them?
+### How to set environment variables?
+### How to switch between environments  
 
-#### Some common env variables 
+### Some common env variables 
 (PATH, LD_LIBRARY_PATH, PWD, USER, SHELL, etc)  
 
 
