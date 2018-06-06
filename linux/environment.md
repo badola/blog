@@ -1,4 +1,4 @@
-## Linux and Environment
+## Linux Environment
 
 #### So what is *environment* in general?  
 Let us get out of the computer world and first talk about *weather*.  
