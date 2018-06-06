@@ -1,3 +1,6 @@
+[Home Index](/README.md)  
+[Linux Home Index](/linux/index.md)  
+
 ## Linux Environment
 
 #### So what is *environment* in general?  
