@@ -70,7 +70,8 @@ Let us assume an organization which has 3 environments.
  - `development` : where development happen
  - `testing`     : for testing of the developed applications and catching bugs
  - `production`  : finally where the code is installed to be used by organisation
- 
+
+
 And they have defined their own variables for various purposes -
 1. *db_dir* : directory name containing database files and libraries
 1. *log_dir* : directory name where application logs are to be written 
@@ -78,7 +79,10 @@ And they have defined their own variables for various purposes -
 1. *data_dir* : directory name from where data is to be read/written
 1. *tmp_dir* : a directory for creating intermediate temporary files
 1. *mail_id* : email-id on which reports are to be sent
- 
+1. *limit*   : number of parallel database connections allowed
+
+Here is the `state` of `environment variables` under various `environment`:
+
 |variable|development        |testing             |production          |
 |:------:|:-----------------:|:------------------:|:------------------:|
 |db_dir  |/usr/lib/db/dev    |/usr/lib/db/test    |/usr/lib/db/prod    |
@@ -87,12 +91,14 @@ And they have defined their own variables for various purposes -
 |data_dir|/usr/share/data/dev|/usr/share/data/test|/usr/share/data/prod|
 |tmp_dir |/tmp/dev           |/tmp/test           |/tmp/prod           |
 |mail_id |gtock.dev@gmail.com|gtock.test@gmail.com|gtock.prod@gmail.com|
+|limit   |200                |200                 |200                 |
 
-So now what is the next step?
+Any variable that is a potential candidate in affecting the `environment` is known as an `environment variable`.
+
+In linux, you can list all the *environment variables* using the command `env`
 
 
-Environment  
-What is an environment variable  
+
 use some common env variables (PATH, LD_LIBRARY_PATH, PWD, USER, SHELL, etc)  
 What is an environment? Why do we use them?  
 How to switch between environments  
