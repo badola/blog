@@ -111,7 +111,7 @@ For our sample organization, `LOG_DIR` is an environment variable. Since on chan
 
 ### What is the use of environment variables? Why one should use them?
 For writing scripts that will adapt dynamically on changing the environment.  
-In script one has to use `$db_addr` and the script will automatically connect to production database on production environment, development database on development environment, and so on.  
+In script one has to use `$DB_ADDR` and the script will automatically connect to production database on production environment, development database on development environment, and so on.  
 
 ### How to set environment variables?
 ### How to switch between environments  
