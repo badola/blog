@@ -76,30 +76,33 @@ Let us assume an organization which has 3 environments.
 
 
 And they have defined their own variables for various purposes -
-1. *db_dir* : directory name containing database files and libraries
-1. *db_addr* : server-address alias for the actual database hosted
-1. *log_dir* : directory name where application logs are to be written 
-1. *exe_dir* : directory name where the applications are deployed
-1. *data_dir* : directory name from where data is to be read/written
-1. *tmp_dir* : a directory for creating intermediate temporary files
-1. *mail_id* : email-id on which reports are to be sent
-1. *limit*   : number of parallel database connections allowed
+1. *DB_DIR* : directory name containing database files and libraries
+1. *DB_ADDR* : server-address alias for the actual database hosted
+1. *LOG_DIR* : directory name where application logs are to be written 
+1. *EXE_DIR* : directory name where the applications are deployed
+1. *DATA_DIR* : directory name from where data is to be read/written
+1. *TMP_DIR* : a directory for creating intermediate temporary files
+1. *MAIL_ID* : email-id on which reports are to be sent
+1. *LIMIT*   : number of parallel database connections allowed
+1. *CURR_ENV* : current environment, for diagnostic purposes
 
 Here is the `state` of `environment variables` under various `environment`:
 
 |variable|development        |testing             |production          |
 |:------:|:-----------------:|:------------------:|:------------------:|
-|db_dir  |/usr/lib/db/dev    |/usr/lib/db/test    |/usr/lib/db/prod    |
-|db_addr |192.208.34.34:7098 |192.208.35.34:1998  |192.200.34.34:1993  |
-|log_dir |/usr/log/dev       |/usr/log/test       |/usr/log/prod       |
-|exe_dir |/usr/bin/dev       |/usr/bin/test       |/usr/bin/prod       |
-|data_dir|/usr/share/data/dev|/usr/share/data/test|/usr/share/data/prod|
-|tmp_dir |/tmp/dev           |/tmp/test           |/tmp/prod           |
-|mail_id |gtock.dev@gmail.com|gtock.test@gmail.com|gtock.prod@gmail.com|
-|limit   |200                |200                 |200                 |
+|DB_DIR  |/usr/lib/db/dev    |/usr/lib/db/test    |/usr/lib/db/prod    |
+|DB_ADDR |192.208.34.34:7098 |192.208.35.34:1998  |192.200.34.34:1993  |
+|LOG_DIR |/usr/log/dev       |/usr/log/test       |/usr/log/prod       |
+|EXE_DIR |/usr/bin/dev       |/usr/bin/test       |/usr/bin/prod       |
+|DATA_DIR|/usr/share/data/dev|/usr/share/data/test|/usr/share/data/prod|
+|TMP_DIR |/tmp/dev           |/tmp/test           |/tmp/prod           |
+|MAIL_ID |gtock.dev@gmail.com|gtock.test@gmail.com|gtock.prod@gmail.com|
+|LIMIT   |200                |200                 |200                 |
+|CURR_ENV|dev                |test                |prod                |
 
 Any variable that is a potential candidate in affecting the `environment` is known as an `environment variable`.  
-For our sample organization, `log_dir` is an environment variable. Since on changing the variable, the logs would be written in some different place.
+By convention, the environment variables are stored in upper-case charactors.  
+For our sample organization, `LOG_DIR` is an environment variable. Since on changing the variable, the logs would be written in some different place.
 
 > Note :  
 > In linux, you can list all the currently set *environment variables* using the command `env`
