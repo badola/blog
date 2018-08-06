@@ -1,5 +1,5 @@
 
-###Make design and learning consistent
+### Make design and learning consistent
 
 - Consistent interfaces are easier to learn and adapt to.
 - Reduces scope for errors.
