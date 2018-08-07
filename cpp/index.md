@@ -35,5 +35,6 @@ Write its C++ equivalent code, and then test it.
 And then store it in a blog.
 
 **Building blocks -**
-1. [Predicates](/cpp/predicates.md).
-1. [Single Event Handler using Predicates](/cpp/single_event_handler_using_predicates.md).
+1. [Predicates](/cpp/predicates.md)
+1. [Single Event Handler using Predicates](/cpp/single_event_handler_using_predicates.md)
+1. [Higher Order Functions](/cpp/higher_order_functions.md)
