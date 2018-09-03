@@ -36,7 +36,7 @@ To make it simpler, we assume that we have just one attendee and just one concep
 1. Is the attendee able to apply the concept immediately after the session has been delivered? (Weightage : 2)
 
 Hence, when we talk about a single concept:
-> Concept Understood (_&#961;_) = Weightage Scored by the Attendee in a Concept / Total Weightage of Subpoints of Understanding
+> Concept Understood (_&#961;_) = Weightage Scored by the Attendee / Total Weightage of Subpoints of Understanding
 
 Extending the definition to multiple concepts(n) for a single attendee:
 > Concepts Understood(_&#934;_) = ( _&Sigma;_<sub>i</sub><sup>n</sup> _&#961;_<sub>i</sub> ) / Number of Concepts(_n_)
