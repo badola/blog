@@ -3,7 +3,7 @@
 **understanding:delivery** is an attempt from my side to quantify the **quality** of a session/lecture/seminar/tutorial.
 
 It simply states that -  
-> **Quality of a Session(_&#968;_)** = **Concepts Understood** by the Attendee(s) / **Concepts Delivered(_&#951;_)** in the Session.
+> **Quality of a Session(_&#968;_)** = **Concepts Understood(_&#934;_<sub>m</sub>)** by the Attendee(s) / **Concepts Delivered(_&#951;_)** in the Session.
 
 The highest value that can be achieved in this ratio is *1*.  
 So if a session addresses 5 concepts while the attendee(s) are only able to understand 4, then:  
@@ -36,10 +36,13 @@ To make it simpler, we assume that we have just one attendee and just one concep
 1. Is the attendee able to apply the concept immediately after the session has been delivered? (Weightage : 2)
 
 Hence, when we talk about a single concept:
-> Understanding Concept(_&#961;_) = Weightage Scored by the Attendee in a Concept / Total Weightage of Subpoints of Understanding
+> Concept Understood (_&#961;_) = Weightage Scored by the Attendee in a Concept / Total Weightage of Subpoints of Understanding
 
-And when we extend the definition to multiple concepts:
-> Understanding Concepts = ( _&Sigma;_<sub>i</sub><sup>n</sup> (_&#961;_<sub>i</sub>) ) / Number of Concepts(_n_)
+Extending the definition to multiple concepts(n) for a single attendee:
+> Concepts Understood(_&#934;_) = ( _&Sigma;_<sub>i</sub><sup>n</sup> _&#961;_<sub>i</sub> ) / Number of Concepts(_n_)
+
+Extending the definition to multiple concepts(n) for multiple attendees(m):
+> Concepts Understood(_&#934;_<sub>m</sub>) = (_&Sigma;_<sub>j</sub><sup>m</sup> _&#934;_<sub>j</sub>) / _m_
 
 
 So with the above factors in mind, we can conceive a new improved defintion of Quality of Session
