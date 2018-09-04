@@ -45,4 +45,6 @@ Extending the definition to multiple concepts(n) for multiple attendees(m):
 > Concepts Understood(_&#934;_<sub>m</sub>) = (_&Sigma;_<sub>j</sub><sup>m</sup> _&#934;_<sub>j</sub>) / _m_
 
 
-So with the above factors in mind, we can conceive a new improved defintion of Quality of Session
+So with the above factors in mind, we can conceive a new improved defintion of Quality of Session  
+=> _&#968;_ = (_&Sigma;_<sub>j</sub><sup>m</sup> _&#934;_<sub>j</sub>) / _m_ / _&#951;_  
+=> _&#968;_ = (_&Sigma;_<sub>j</sub><sup>m</sup> _&#934;_<sub>j</sub>) / _m_&#951;
