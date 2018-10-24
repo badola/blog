@@ -1,4 +1,4 @@
-## Higher Order Functions
+# Higher Order Functions
 [Home Index](/README.md)  
 [C++ Home Index](/cpp/index.md)  
 
