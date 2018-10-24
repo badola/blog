@@ -4,7 +4,12 @@ This post is inspired from Alexander Stepanov's lectures and papers.
 Paper => http://stepanovpapers.com/DeSt98.pdf  
 Talks => https://www.youtube.com/playlist?list=PLHxtyCq_WDLXryyw91lahwdtpZsmo4BGD  
 
-By default the datatype defined 
+By default the datatype defined in C++ is a **semi-regular** type.  
+Properties of **semi-regular** type -  
+1. construtor
+1. destructor
+1. copy constructor
+1. copy assignment operator
 
     struct T
     {
