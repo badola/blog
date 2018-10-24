@@ -4,7 +4,13 @@ This post is inspired from Alexander Stepanov's lectures and papers.
 Paper => http://stepanovpapers.com/DeSt98.pdf  
 Talks => https://www.youtube.com/playlist?list=PLHxtyCq_WDLXryyw91lahwdtpZsmo4BGD  
 
+There are 3 primary types in any language, depending upon the class of operations provided by the type -
+- semi-regular
+- regular
+- totally ordered
+
 By default the datatype defined in C++ is a **semi-regular** type.  
+It is important to understand the 3 types, so that we can better define the requirements of an algorithm.
 
 Properties of **semi-regular** type -  
 - construtor
@@ -113,7 +119,7 @@ Properties of **totally ordered** type -
             {
                 return !(lhs > rhs);
             }
-            // totally ordered
+            // above are the properties of totally ordered type
 
             private:
                 int _data;
