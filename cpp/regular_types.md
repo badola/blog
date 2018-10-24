@@ -5,58 +5,117 @@ Paper => http://stepanovpapers.com/DeSt98.pdf
 Talks => https://www.youtube.com/playlist?list=PLHxtyCq_WDLXryyw91lahwdtpZsmo4BGD  
 
 By default the datatype defined in C++ is a **semi-regular** type.  
+
 Properties of **semi-regular** type -  
-1. construtor
-1. destructor
-1. copy constructor
-1. copy assignment operator
+- construtor
+- destructor
+- copy constructor
+- copy assignment operator
+- move constructor (since C++11)
+- move assignment operator (since C++11)
 
-    struct T
-    {
-        T() = default;
-        T(int data) : _data(data) {}
-        ~T() = default;
-        T(const & T) = default;
-        T(T&&) = default;
-
-        T& operator =(T const &) = default;
-        T& operator =(T&&) = default;
-
-        // semi- regular
-
-        friend bool operator == (T const & lhs, T const & rhs)
+        struct T  
         {
-            return lhs._data == rhs._data;
-        }
+            T() = default;                      // constructor
+            T(int data) : _data(data) {}        // constructor
+            ~T() = default;                     // destructor
+            T(const & T) = default;             // copy constructor
+            T(T&&) = default;                   // move constructor
+            T& operator =(T const &) = default; // copy assignment
+            T& operator =(T&&) = default;       // move assignment
+            
+            // above are the properties of semi-regular type
+            
+            private:
+                int _data;
+        };
 
-        friend bool operator != (T const & lhs, T const & rhs)
+Properties of **regular** type - 
+ - All properties of **semi-regular** type
+ - equality operator
+ - inequality operator
+
+        struct T  
         {
-            return !(lhs == rhs);
-        }
-        // regular type
+            T() = default;                      // constructor
+            T(int data) : _data(data) {}        // constructor
+            ~T() = default;                     // destructor
+            T(const & T) = default;             // copy constructor
+            T(T&&) = default;                   // move constructor
+            T& operator =(T const &) = default; // copy assignment
+            T& operator =(T&&) = default;       // move assignment
+            
+            // above are the properties of semi-regular type
+            
+            friend bool operator == (T const & lhs, T const & rhs) // equality operator
+            {
+                return lhs._data == rhs._data;
+            }
 
-        friend bool operator < (T const & lhs, T const & rhs)
+            friend bool operator != (T const & lhs, T const & rhs) // inequality operator
+            {
+                return !(lhs == rhs);
+            }
+            
+            // above are the properties of regular type
+            
+            private:
+                int _data;
+        };
+
+Properties of **totally ordered** type - 
+ - All properties of **regular** type
+ - less-than operator
+ - less-than-or-equal operator
+ - greater-than operator
+ - greater-than-or-equal operator
+
+        struct T  
         {
-            return lhs._data < rhs._data;
-        }
+            T() = default;                      // constructor
+            T(int data) : _data(data) {}        // constructor
+            ~T() = default;                     // destructor
+            T(const & T) = default;             // copy constructor
+            T(T&&) = default;                   // move constructor
+            T& operator =(T const &) = default; // copy assignment
+            T& operator =(T&&) = default;       // move assignment
+            
+            // above are the properties of semi-regular type
+            
+            friend bool operator == (T const & lhs, T const & rhs) // equality operator
+            {
+                return lhs._data == rhs._data;
+            }
 
-        friend bool operator >= (T const & lhs, T const & rhs)
-        {
-            return !(lhs < rhs);
-        }
+            friend bool operator != (T const & lhs, T const & rhs) // inequality operator
+            {
+                return !(lhs == rhs);
+            }
+            
+            // above are the properties of regular type
 
-        friend bool operator > (T const & lhs, T const & rhs)
-        {
-            return rhs < lhs;
-        }
+            friend bool operator < (T const & lhs, T const & rhs)
+            {
+                return lhs._data < rhs._data;
+            }
 
-        friend bool operator <= (T const & lhs, T const & rhs)
-        {
-            return !(lhs > rhs);
-        }
-        // totally ordered
+            friend bool operator >= (T const & lhs, T const & rhs)
+            {
+                return !(lhs < rhs);
+            }
 
-        private:
-            int _data;
-    };
+            friend bool operator > (T const & lhs, T const & rhs)
+            {
+                return rhs < lhs;
+            }
+
+            friend bool operator <= (T const & lhs, T const & rhs)
+            {
+                return !(lhs > rhs);
+            }
+            // totally ordered
+
+            private:
+                int _data;
+        };
     
