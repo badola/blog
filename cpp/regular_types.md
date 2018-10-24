@@ -94,22 +94,22 @@ Properties of **totally ordered** type -
             
             // above are the properties of regular type
 
-            friend bool operator < (T const & lhs, T const & rhs)
+            friend bool operator < (T const & lhs, T const & rhs) // less-than operator
             {
                 return lhs._data < rhs._data;
             }
 
-            friend bool operator >= (T const & lhs, T const & rhs)
+            friend bool operator >= (T const & lhs, T const & rhs) // greater-than-or-equal operator
             {
                 return !(lhs < rhs);
             }
 
-            friend bool operator > (T const & lhs, T const & rhs)
+            friend bool operator > (T const & lhs, T const & rhs) // greater-than operator
             {
                 return rhs < lhs;
             }
 
-            friend bool operator <= (T const & lhs, T const & rhs)
+            friend bool operator <= (T const & lhs, T const & rhs) // less-than-or-equal operator
             {
                 return !(lhs > rhs);
             }
