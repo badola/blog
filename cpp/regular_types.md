@@ -1,4 +1,6 @@
 # Regular Types
+[Home Index](/README.md)  
+[C++ Home Index](/cpp/index.md)  
 
 This post is inspired from Alexander Stepanov's lectures and papers.  
 Paper => http://stepanovpapers.com/DeSt98.pdf  
