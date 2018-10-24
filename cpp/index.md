@@ -2,7 +2,7 @@
 
 ## Remember Remember the C++11  
 > Remember, remember!  
-> The cppcon starts in November,  
+> The cppcon starts in September,  
 > The metaprogramming, closures and plot;  
 > I know of no reason  
 > Why the Concepts and Expressions  
