@@ -39,3 +39,4 @@ And then store it in a blog.
 1. [Higher Order Functions](/cpp/higher_order_functions.md)
 1. [Single Event Handler using Predicates](/cpp/single_event_handler_using_predicates.md)
 1. [Regular Types](/cpp/regular_types.md)
+1. [std::rotate](/cpp/std_rotate.md)
