@@ -1,4 +1,6 @@
 # std::rotate
+[Home Index](/README.md)  
+[C++ Home Index](/cpp/index.md)  
 
 The way to remember `std::rorate` is :
 > If you see cut-paste, it is std::rotate.
