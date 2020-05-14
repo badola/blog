@@ -58,8 +58,9 @@ Which in code would look like -
         std::string name = "ABHINAV,BADOLA";
         std::cout << "name before rotate => " << name << "\n";
         
-        auto last_cursor = std::rotate(name.begin(), name.begin() + 7, name.end());
-        std::rotate(name.begin(), name.begin() + 1, last_cursor);
+        auto comma_position = std::find(name.begin(), name.end(), ',');
+        auto last_cursor = std::rotate(name.begin(), comma_position, name.end());
+        std::rotate(name.begin(), std::next(name.begin()), last_cursor);
         
         std::cout << "name after  rotate => " << name << "\n";
         return 0;
