@@ -25,7 +25,12 @@ For our ease of understanding, lets index the data as well:
     | A | B | H | I | N | A | V | , | B | A |  D |  O |  L |  A | end()|
     ____________________________________________________________________
 
-First we will cut `,BADOLA` and paste it in front of `ABHINAV`
+First we will have to find the location of comma.
+
+    auto comma_position = std::find(name.begin(), name.end(), ',');
+    // comma_position now points to 7th location
+
+Then we will cut `,BADOLA` and paste it in front of `ABHINAV`
 
     // std::rotate(new_paste_location, cut_start_location, cut_end_location) -> cursor_current_location
     // std::rotate(0                 , 7                 , 14              ) -> 7
@@ -36,7 +41,7 @@ First we will cut `,BADOLA` and paste it in front of `ABHINAV`
     ____________________________________________________________________
     // It returns 7 since cursor would be after 6 and before 7, which is 7 in our case.
 
-Now we will cut the comma `,` and place it after `BADOLA`.  
+Finally, we will cut the comma `,` and place it after `BADOLA`.  
 Which can also be said as => we will cut `BADOLA` and paste it before the `,`
 
     // std::rotate(new_paste_location, cut_start_location, cut_end_location) -> cursor_current_location
@@ -53,6 +58,7 @@ Which in code would look like -
     #include <iostream>
     #include <string>
     #include <algorithm>
+    
     int main()
     {
         std::string name = "ABHINAV,BADOLA";
