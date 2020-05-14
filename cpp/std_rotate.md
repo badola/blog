@@ -17,7 +17,7 @@ You are required to transform it into => `LastName,FirstName`
 How would you go about doing it using cut and paste on a text editor?  
 For our example, we will use the name => `ABHINAV,BADOLA`   
 
-For our ease of use, lets index the data as well:
+For our ease of understanding, lets index the data as well:
 
     ____________________________________________________________________
     | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14   |
