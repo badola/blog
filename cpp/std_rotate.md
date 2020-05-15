@@ -2,7 +2,7 @@
 [Home Index](/README.md)  
 [C++ Home Index](/cpp/index.md)  
 
-The way to remember `std::rorate` is :
+The way to remember `std::rotate` is :
 > If you see cut-paste, it is std::rotate.
 
 So if you see any use case, where you have to cut the data and paste it somewhere, it can be easily achieved by `std::rotate`.  
