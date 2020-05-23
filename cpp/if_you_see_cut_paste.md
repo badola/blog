@@ -6,8 +6,6 @@
 > Alexander Stepanov (http://stepanovpapers.com/notes.pdf, Lecture 19. Rotate)
 
 In this article we would introduce a simple trick to identify when rotate can be useful and how to use it.  
-The article would be incomplete without the critical insights provided by Alex, when he was designing and teaching `rotate` to others.
-
 But first, let us have a look at the signature of `std::rotate`
 
     template< class ForwardIt >
