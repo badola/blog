@@ -147,7 +147,7 @@ If you need a *right-rotate*, use reverse iterators:
     std::rotate(s.rbegin(), s.rbegin() + 1, s.rend());
     // s is now "eabcd"
 
-However, we can create a high-level cut-paste algorithm using rotate, which would be independent of the direction.
+However, we can create a high level abstration of cut-paste algorithm using rotate which would be independent of the paste_location.  
 This algorithm would, however, increase the requirement of the `Iterator` from `LegacyForwardIterator` to `LegacyRandomAccessIterator`.
 
     template<typename Iter> // Iter models LegacyRandomAccessIterator
