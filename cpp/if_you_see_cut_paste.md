@@ -43,6 +43,7 @@ The one-liner to remember `std::rotate` is :
 (repeat it 3 times - "If you see cut-paste, it is std::rotate." - and you have already mastered rotate)
 
 So, if you see any use case where you have to cut the data and paste it somewhere, it can be easily achieved by `std::rotate`.  
+The power of `rotate` comes from the fact that all elements move together.
 
 In short, we can re-interpret rotate :
 
@@ -113,9 +114,11 @@ Which in code would look like -
         std::cout << name ;    // BADOLA,ABHINAV
     }   
 
-This is not only limited to string permutations but also to all sequenced containers alike.
-So where can we use in `std::vector`?
+`std::rotate` is not only limited to string permutations but also to all sequenced containers alike.  
+So all of our above discussion applies to `std::vector` as well.
 
 > A few years back I was astonished when a leading STL expert told me that they discovered that they could use rotate to speed up a quadratic implementation of the insert member function. I assumed that it was self-evident.  
 >   
 > Alexander Stepanov
+
+
