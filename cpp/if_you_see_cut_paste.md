@@ -1,13 +1,22 @@
 > A programmer without rotate is like a handyman without a screwdriver.  
 > It is quite surprising how few people know about rotate and how few know why and how to use it.  
+> 
+> Reverse, rotate and random shuffle are the most important examples of index-based permutations, that is, permutations that rearrange a sequence according to the original position of the elements without any consideration for their values.  
 >  
 > Alexander Stepanov (http://stepanovpapers.com/notes.pdf, Lecture 19. Rotate)
 
-> Reverse, rotate and random shuffle are the most important examples of index-based permutations, that is, permutations that rearrange a sequence according to the original position of the elements without any consideration for their values.  
->   
-> Alexander Stepanov (http://stepanovpapers.com/notes.pdf, Lecture 20. Partition)
+In this article we would introduce a simple trick to identify when rotate can be useful and how to use it.  
 
-In this article we would try to bring 
+Unfortunately the return value was not returned by `std::rotate` until C++11. 
+
+    template< class ForwardIt >
+    void rotate( ForwardIt first, ForwardIt n_first, ForwardIt last );      // (until C++11)
+    
+    template< class ForwardIt >
+    ForwardIt rotate( ForwardIt first, ForwardIt n_first, ForwardIt last ); // (since C++11)
+
+ > I also observed that in many cases when I used rotate I would immediately need to compute the position of the new rotation point, that is, the position where the beginning of the first sub-range ended. Assuming that we are dealing with random-access iterators, after rotate(f, m, l), I would frequently need f + (l – m). Computing it for random-access iterators is trivial, but it is really slow for linked structures. By the way, if we return such an iterator we obtain that
+rotate(f, rotate(f, m, l), l) is an identity permutation. While we cannot use it as a definite proof, the existence of such a property makes me comfortable that we are on the right path. Because of this property, I will call m the old rotation point and the result of rotate – the new rotation point.
 
 The one-liner to remember `std::rotate` is :
 > If you see cut-paste, it is std::rotate.
@@ -17,14 +26,6 @@ So if you see any use case, where you have to cut the data and paste it somewher
 In short, we can re-interpret it as :
 
     std::rotate(new_paste_location, cut_start_location, cut_end_location) -> cursor_current_location
-
-Unfortunately the return value was not returned by `std::rotate` until C++11.
-
-    template< class ForwardIt >
-    void rotate( ForwardIt first, ForwardIt n_first, ForwardIt last );      // (until C++11)
-    
-    template< class ForwardIt >
-    ForwardIt rotate( ForwardIt first, ForwardIt n_first, ForwardIt last ); // (since C++11)
 
 So lets learn by taking an example.  
 Suppose you are given a name in the order => `FirstName,LastName`  
