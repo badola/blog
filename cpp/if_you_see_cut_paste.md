@@ -68,6 +68,7 @@ Then we will cut `,BADOLA` and paste it in front of `ABHINAV`
     ____________________________________________________________________
     | , | B | A | D | O | L | A | A | B | H |  I |  N |  A |  V | end()|
     ____________________________________________________________________
+                                ↑
     // It returns 7 since cursor would be after 6 and before 7, which is 7 in our case.
 
 Finally, we will cut the comma `,` and place it after `BADOLA`.  
@@ -80,6 +81,7 @@ Which can also be said as => we will cut `BADOLA` and paste it before the `,`
     ____________________________________________________________________
     | B | A | D | O | L | A | , | A | B | H |  I |  N |  A |  V | end()|
     ____________________________________________________________________
+                            ↑
     // It returns 6 since cursor would be after 5 and before 6, which is 6 in our case.
 
 Which in code would look like -
@@ -91,8 +93,9 @@ Which in code would look like -
         std::rotate(name.begin(), std::next(name.begin()), cursor_current_location);
     }    
         auto name = std::string{"ABHINAV,BADOLA"};
-        std::cout << "name before rotate => " << name << "\n";    // ABHINAV,BADOLA        
-        std::cout << "name after  rotate => " << name << "\n";    // BADOLA,ABHINAV
+        std::cout << name ;    // ABHINAV,BADOLA
+        swap_firstname_lastname(name);
+        std::cout << name ;    // BADOLA,ABHINAV
         
     
 > A few years back I was astonished when a leading STL expert told me that they discovered that they could use rotate to speed up a quadratic implementation of the insert member function. I assumed that it was self-evident.  
