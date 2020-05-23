@@ -27,10 +27,22 @@ This shortcoming was also noticed and addressed by Alex. In his own words -
 > The problem was that while I knew what was needed, I did not know how to implement it without incurring a performance penalty for the three-reverses rotate.  
 > This is why when I wrote the specification of rotate for STL in 1994, it was returning `void`.
 
-The one-liner to remember `std::rotate` is :
-> If you see cut-paste, it is std::rotate.
+In the book *From Mathematics to Generic Programming*, Alexander Stepanov and Daniel Rose then go on to describe the **Law of Useful Return** :  
+> If you’ve already done the work to get some useful result, don’t throw it away.  
+> Return it to the caller.  
+> This may allow the caller to get some extra work done “for free”.  
 
-So if you see any use case, where you have to cut the data and paste it somewhere, it can be easily achieved by `std::rotate`.  
+Therefore, since C++11, `std::rotate` returns an iterator to the new position of the previously-last iterator.  
+Maybe it won’t be used, but it was already computed anyway.  
+As we will see now, in the below examples, how critical this "Law of Useful Return" can be.  
+It also completes the interface of `std::rotate` by allowing identity permutation.
+
+The one-liner to remember `std::rotate` is :
+> **If you see cut-paste, it is std::rotate.**  
+
+(repeat it 3 times - "If you see cut-paste, it is std::rotate." - and you have already mastered rotate)
+
+So, if you see any use case where you have to cut the data and paste it somewhere, it can be easily achieved by `std::rotate`.  
 
 In short, we can re-interpret rotate :
 
@@ -100,7 +112,10 @@ Which in code would look like -
         swap_firstname_lastname(name);
         std::cout << name ;    // BADOLA,ABHINAV
     }   
-    
+
+This is not only limited to string permutations but also to all sequenced containers alike.
+So where can we use in `std::vector`?
+
 > A few years back I was astonished when a leading STL expert told me that they discovered that they could use rotate to speed up a quadratic implementation of the insert member function. I assumed that it was self-evident.  
 >   
 > Alexander Stepanov
