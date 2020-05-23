@@ -8,7 +8,7 @@
 In this article we would introduce a simple trick to identify when rotate can be useful and how to use it.  
 The article would be incomplete without the critical insights provided by Alex, when he was designing and teaching `rotate` to others.
 
-Let us have a look at the signature of `std::rotate`
+But first, let us have a look at the signature of `std::rotate`
 
     template< class ForwardIt >
     void rotate( ForwardIt first, ForwardIt n_first, ForwardIt last );      // (until C++11)
@@ -16,8 +16,8 @@ Let us have a look at the signature of `std::rotate`
     template< class ForwardIt >
     ForwardIt rotate( ForwardIt first, ForwardIt n_first, ForwardIt last ); // (since C++11)
 
-Unfortunately, the return value was not returned by `std::rotate` until C++11.  
-This shortcoming was also noticed by Alex. In his own words -  
+Unfortunately, the return type of `std::rotate` was `void` until C++11.  
+This shortcoming was also noticed and addressed by Alex. In his own words -  
 > I also observed that in many cases when I used rotate I would immediately need to compute the position of the **new rotation point**, that is, the position where the beginning of the first sub-range ended.  
 > Assuming that we are dealing with random-access iterators, after `rotate(f, m, l)`, I would frequently need `f + (l – m)`.  
 > Computing it for random-access iterators is trivial, but it is really slow for linked structures.  
