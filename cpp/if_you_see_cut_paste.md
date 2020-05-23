@@ -34,23 +34,23 @@ In the book *From Mathematics to Generic Programming*, Alexander Stepanov and Da
 
 Therefore, since C++11, `std::rotate` returns an iterator to the new position of the previously-last iterator.  
 Maybe it won’t be used, but it was already computed anyway.  
-As we will see now, in the below examples, how critical this "Law of Useful Return" can be.  
-It also completes the interface of `std::rotate` by allowing identity permutation.
+As we will see now, in the below examples, how critical this **Law of Useful Return** can be.  
+It also completes the interface of `std::rotate` by allowing *identity permutation*.
 
-The one-liner to remember `std::rotate` is :
-> **If you see cut-paste, it is std::rotate.**  
+The one-liner to remember `rotate` is :
+> **If you see cut-paste, it is rotate.**  
 
-(repeat it 3 times - "If you see cut-paste, it is std::rotate." - and you have already mastered rotate)
-
-So, if you see any use case where you have to cut the data and paste it somewhere, it can be easily achieved by `std::rotate`.  
-The power of `rotate` comes from the fact that all elements move together.
+(repeat it 3 times - "If you see cut-paste, it is rotate." - and you have already mastered rotate)
 
 In short, we can re-interpret rotate :
 
-    std::rotate(ForwardIt first, ForwardIt n_first, ForwardIt last ) -> ForwardIt 
+    rotate(ForwardIt first, ForwardIt n_first, ForwardIt last ) -> ForwardIt 
 as
 
-    std::rotate(paste_location, cut_start_location, cut_end_location) -> cursor_location
+    rotate(paste_location, cut_start_location, cut_end_location) -> cursor_location
+
+So, if you see any use case where you have to cut the data and paste it somewhere, it can be easily achieved by `rotate`.  
+The power of `rotate` comes from the fact that all elements move together.  
 
 So lets learn by taking an example.  
 Suppose you are given a name in the order => `FirstName,LastName`  
