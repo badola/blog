@@ -37,7 +37,7 @@ Maybe it won’t be used, but it was already computed anyway.
 As we will see now, in the below examples, how critical this **Law of Useful Return** can be.  
 It also completes the interface of `std::rotate` by allowing *identity permutation*.
 
-The one-liner to remember `rotate` is :
+So here is one-liner to remember when `rotate` is useful:
 > **If you see cut-paste, it is rotate.**  
 
 (repeat it 3 times - "If you see cut-paste, it is rotate." - and you have already mastered rotate)
