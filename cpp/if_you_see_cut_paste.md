@@ -133,7 +133,7 @@ So all of our above discussion applies to `std::vector`, `std::list`, etc. as we
 Want to move an element (or a group of elements) to the back of a vector say `v`?
 
     std::rotate(begin_of_items_to_move, end_of_items_to_move, v.end());
-In the same way it can be used to move elements to the start of a vector.
+In the same way rotate can be used to move elements to the start of a vector.
 
     std::rotate(v.begin(), begin_of_items_to_move, end_of_items_to_move);
 
