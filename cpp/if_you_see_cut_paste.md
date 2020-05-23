@@ -151,7 +151,7 @@ If you need a *right-rotate*, use reverse iterators:
 We can create a high level abstration of cut-paste algorithm using rotate which would be independent of the paste_location.  
 This algorithm would, however, increase the requirement of the `Iterator` from `LegacyForwardIterator` to `LegacyRandomAccessIterator`.
 
-    template<typename Iter> // Iter models LegacyRandomAccessIterator
+    template<typename Iter>                  // Iter models LegacyRandomAccessIterator
     Iter cut_paste(Iter cut_start_location, Iter cut_end_location, Iter paste_location)
     {
         if (paste_location < cut_start_location)   // handles (case #1), left-rotate
