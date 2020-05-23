@@ -150,14 +150,14 @@ How can we create a high-level cut-paste algorithm using rotate?
     cut_paste(cut_start_location, cut_end_location, paste_location) -> cursor_location
     {
         if (paste_location < cut_start_location)
-            return std::rotate(paste_location, cut_start_location, last);
+            return std::rotate(paste_location, cut_start_location, cut_end_location);
         if (cut_end_location < paste_location)
             return std::rotate(cut_start_location, cut_end_location, paste_location);
         // else - no-operation required, there will be no change in the data
     }
 
-Does this code piece seem familiar?
-Exactly!
-This is the famous `slide` algorithm by Sean Parent, displayed in his famous talk C++ Seasoning he gave at GoingNative 2013.
+Does this code piece seem familiar?  
+Exactly!  
+This is the famous `slide` algorithm by Sean Parent, displayed in his famous talk C++ Seasoning he gave at GoingNative 2013.  
 You can read more about slide algorithm in https://www.fluentcpp.com/2018/04/20/ways-reordering-collection-stl/
 
