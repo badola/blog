@@ -1,7 +1,13 @@
 > A programmer without rotate is like a handyman without a screwdriver.  
 > It is quite surprising how few people know about rotate and how few know why and how to use it.  
 >  
-> -- Alexander Stepanov (http://stepanovpapers.com/notes.pdf, Lecture 19. Rotate)
+> Alexander Stepanov (http://stepanovpapers.com/notes.pdf, Lecture 19. Rotate)
+
+> Reverse, rotate and random shuffle are the most important examples of index-based permutations, that is, permutations that rearrange a sequence according to the original position of the elements without any consideration for their values.  
+>   
+> Alexander Stepanov (http://stepanovpapers.com/notes.pdf, Lecture 20. Partition)
+
+In this article we would try to bring 
 
 The one-liner to remember `std::rotate` is :
 > If you see cut-paste, it is std::rotate.
@@ -90,4 +96,4 @@ Output :
     
 > A few years back I was astonished when a leading STL expert told me that they discovered that they could use rotate to speed up a quadratic implementation of the insert member function. I assumed that it was self-evident.  
 >   
-> -- Alexander Stepanov
+> Alexander Stepanov
