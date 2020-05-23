@@ -108,7 +108,7 @@ Which can also be said as => we will cut `BADOLA` and paste it before the `,`
                             ↑
     // It returns 6 since cursor would be after 5 and before 6, which is 6 in our case.
 
-Notice how we used the value returned by rotate of (case #1) in rotate of (case #2)
+Notice how we used the value returned by the rotate of (case #1) in the rotate of (case #2)
 
 Which in code would look like -
     
