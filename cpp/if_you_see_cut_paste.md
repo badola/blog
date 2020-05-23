@@ -3,13 +3,22 @@
 >  
 > -- Alexander Stepanov (http://stepanovpapers.com/notes.pdf, Lecture 19. Rotate)
 
-The way to remember `std::rotate` is :
+The one-liner to remember `std::rotate` is :
 > If you see cut-paste, it is std::rotate.
 
 So if you see any use case, where you have to cut the data and paste it somewhere, it can be easily achieved by `std::rotate`.  
 
-In short, we can re-interpret it as :  
-`std::rotate(new_paste_location, cut_start_location, cut_end_location) -> cursor_current_location` 
+In short, we can re-interpret it as :
+
+    std::rotate(new_paste_location, cut_start_location, cut_end_location) -> cursor_current_location
+
+Unfortunately the return value was not returned by `std::rotate` until C++11.
+
+    template< class ForwardIt >
+    void rotate( ForwardIt first, ForwardIt n_first, ForwardIt last );      // (until C++11)
+    
+    template< class ForwardIt >
+    ForwardIt rotate( ForwardIt first, ForwardIt n_first, ForwardIt last ); // (since C++11)
 
 So lets learn by taking an example.  
 Suppose you are given a name in the order => `FirstName,LastName`  
