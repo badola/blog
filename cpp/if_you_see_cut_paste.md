@@ -161,3 +161,14 @@ Exactly!
 This is the famous `slide` algorithm by Sean Parent, displayed in his famous talk C++ Seasoning he gave at GoingNative 2013.  
 You can read more about slide algorithm in https://www.fluentcpp.com/2018/04/20/ways-reordering-collection-stl/
 
+Insertion Sort - A sort that works with forward iterators.  
+Essentially you take a sorted list, cut the element just next to the end of sorted range.
+
+    template<class ForwardIterator, class Compare = std::less<>>
+    void insertion_sort(ForwardIterator first, ForwardIterator last, Compare cmp = Compare{})
+    {
+        for (auto it = first; it != last; ++it) {
+            auto const insertion = std::upper_bound(first, it, *it, cmp);
+            std::rotate(insertion, it, std::next(it)); 
+        }
+    }
