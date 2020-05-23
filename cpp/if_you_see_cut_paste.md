@@ -42,17 +42,17 @@ The one-liner to remember `rotate` is :
 
 (repeat it 3 times - "If you see cut-paste, it is rotate." - and you have already mastered rotate)
 
-In short, we can re-interpret rotate :
+For our ease of use, we can re-interpret rotate :
 
     rotate(ForwardIt first, ForwardIt n_first, ForwardIt last ) -> ForwardIt 
 as
 
     rotate(paste_location, cut_start_location, cut_end_location) -> cursor_location
 
-So, if you see any use case where you have to cut the data and paste it somewhere, it can be easily achieved by `rotate`.  
-The power of `rotate` comes from the fact that all elements move together.  
+So, if you see any use case where you have to **cut** the data and **paste** it somewhere, it can be easily achieved by `rotate`.  
+This power of `rotate` comes from the fact that all the cut elements move together.  
 
-So lets learn by taking an example.  
+So lets strengthen our learning by taking an example.  
 Suppose you are given a name in the order => `FirstName,LastName`  
 You are required to transform it into => `LastName,FirstName`  
 
@@ -137,11 +137,27 @@ Which in code would look like -
         std::cout << name ;    // BADOLA,ABHINAV
     }   
 
-`std::rotate` is not only limited to string permutations but also to all sequenced containers alike.  
+`std::rotate` is not only limited to string permutations but also to all sequenced containers.  
 So all of our above discussion applies to `std::vector` as well.
 
 > A few years back I was astonished when a leading STL expert told me that they discovered that they could use rotate to speed up a quadratic implementation of the insert member function. I assumed that it was self-evident.  
 >   
 > Alexander Stepanov
 
-https://www.fluentcpp.com/2018/04/20/ways-reordering-collection-stl/
+Unfortunately, our cut-paste algorithm only works if the paste destination is towards the left of cut location.
+How can we create a high-level cut-paste algorithm using rotate?
+
+    cut_paste(cut_start_location, cut_end_location, paste_location) -> cursor_location
+    {
+        if (paste_location < cut_start_location)
+            return std::rotate(paste_location, cut_start_location, last);
+        if (cut_end_location < paste_location)
+            return std::rotate(cut_start_location, cut_end_location, paste_location);
+        // else - no-operation required, there will be no change in the data
+    }
+
+Does this code piece seem familiar?
+Exactly!
+This is the famous `slide` algorithm by Sean Parent, displayed in his famous talk C++ Seasoning he gave at GoingNative 2013.
+You can read more about slide algorithm in https://www.fluentcpp.com/2018/04/20/ways-reordering-collection-stl/
+
