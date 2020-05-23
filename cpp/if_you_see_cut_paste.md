@@ -98,6 +98,7 @@ Which can also be said as => we will cut `BADOLA` and paste it before the `,`
     ____________________________________________________________________
         ↑                       ↑
         cut_start_location      cut_end_location/cursor_location
+        
     // std::rotate(paste_location, cut_start_location, cut_end_location) -> cursor_location
     // std::rotate(0             , 1                 , 7               ) -> 6
     ____________________________________________________________________
@@ -108,9 +109,9 @@ Which can also be said as => we will cut `BADOLA` and paste it before the `,`
                             ↑
     // It returns 6 since cursor would be after 5 and before 6, which is 6 in our case.
 
-Notice how we used the value returned by the rotate of (case #1) in the rotate of (case #2)
+**Notice how we used the value returned by the rotate of (case #1) in the rotate of (case #2)**
 
-Which in code would look like -
+In code this would look like -
     
     void swap_firstname_lastname(std::string & name) // in-place swap
     {
@@ -128,7 +129,7 @@ Which in code would look like -
     }   
 
 `std::rotate` is not only limited to string permutations but also to all sequenced containers.  
-So all of our above discussion applies to `std::vector`, `std::list`, etc. as well.
+So all of our above discussion applies to `std::vector`, `std::list`, `std::array`, etc. as well.
 
 Want to move an element (or a group of elements) to the back of a vector say `v`?
 
