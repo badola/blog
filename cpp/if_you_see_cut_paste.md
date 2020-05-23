@@ -150,8 +150,13 @@ Want to move an element (or a group of elements) to the back of a vector say `v`
 
 Using rotate as our **cut-paste** algorithm has a limitation.  
 It only works if the *paste_location* is towards the left of *cut_start_location*.  
+Essentially, `std::rotate` is a *left-rotate*.  
 
-We can create a high-level cut-paste algorithm using rotate, which would be independent of the direction.
+If you need a *right-rotate*, use reverse iterators:  
+
+    std::rotate(s.rbegin(), s.rbegin() + 1, s.rend());
+
+However, we can create a high-level cut-paste algorithm using rotate, which would be independent of the direction.
 
     cut_paste(cut_start_location, cut_end_location, paste_location) -> cursor_location
     {
