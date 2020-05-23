@@ -26,7 +26,6 @@ In the book *From Mathematics to Generic Programming*, Alexander Stepanov and Da
 Therefore, since C++11, `std::rotate` returns an iterator to the new position of the previously-last iterator.  
 Maybe it won’t be used, but it was already computed anyway.  
 As we will see now, in the below examples, how critical this **Law of Useful Return** can be.  
-It also completes the interface of `std::rotate` by allowing *identity permutation*.
 
 So here is one-liner to remember when `rotate` is useful:
 > **If you see cut-paste, it is rotate.**  
