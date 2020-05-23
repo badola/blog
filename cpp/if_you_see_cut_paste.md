@@ -143,25 +143,25 @@ Essentially, `std::rotate` is a *left-rotate*.
 
 If you need a *right-rotate*, use reverse iterators:  
 
-    std::string s = "abcde";
-    std::rotate(s.rbegin(), s.rbegin() + 1, s.rend());
-    // s is now "eabcd"
+    std::string s = "abcdef";
+    std::rotate(s.rbegin(), std::next(s.rbegin(), 2), s.rend());
+    // s is now "efabcd"
 
-However, we can create a high level abstration of cut-paste algorithm using rotate which would be independent of the paste_location.  
+We can create a high level abstration of cut-paste algorithm using rotate which would be independent of the paste_location.  
 This algorithm would, however, increase the requirement of the `Iterator` from `LegacyForwardIterator` to `LegacyRandomAccessIterator`.
 
     template<typename Iter> // Iter models LegacyRandomAccessIterator
     Iter cut_paste(Iter cut_start_location, Iter cut_end_location, Iter paste_location)
     {
-        if (paste_location < cut_start_location)   // handles (case #1)
+        if (paste_location < cut_start_location)   // handles (case #1), left-rotate
             return std::rotate(paste_location, cut_start_location, cut_end_location);
             
-        if (cut_end_location < paste_location)     // handles (case #2)
+        if (cut_end_location < paste_location)     // handles (case #2), right-rotate
             return std::rotate(cut_start_location, cut_end_location, paste_location);
             
         // else - no-operation required, there will be no change in the arrangement of data
-        // return the cut_end_location, cause that is where our cursor would be after the operation is complete
-        return cut_end_location; 
+        // return the cut_end_location, cause that is where our cursor should be if the operation was done
+        return cut_end_location;
     }
 
 Does this code piece seem familiar?  
