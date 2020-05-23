@@ -91,12 +91,15 @@ Which in code would look like -
         auto comma_position = std::find(name.begin(), name.end(), ',');
         auto cursor_current_location = std::rotate(name.begin(), comma_position, name.end());
         std::rotate(name.begin(), std::next(name.begin()), cursor_current_location);
-    }    
+    }
+    
+    void test()
+    {
         auto name = std::string{"ABHINAV,BADOLA"};
         std::cout << name ;    // ABHINAV,BADOLA
         swap_firstname_lastname(name);
         std::cout << name ;    // BADOLA,ABHINAV
-        
+    }   
     
 > A few years back I was astonished when a leading STL expert told me that they discovered that they could use rotate to speed up a quadratic implementation of the insert member function. I assumed that it was self-evident.  
 >   
