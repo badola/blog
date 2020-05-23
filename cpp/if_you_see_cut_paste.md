@@ -78,7 +78,7 @@ First we will have to find the location of comma.
                                 ↑
     // comma_position now points to 7th location
 
-Then we will cut `,BADOLA` and paste it in front of `ABHINAV`
+Then we will cut `,BADOLA` and paste it in front of `ABHINAV` (case #1)
 
     ____________________________________________________________________
     | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14   |
@@ -99,7 +99,7 @@ Then we will cut `,BADOLA` and paste it in front of `ABHINAV`
                                 cursor_location
     // It returns 7 since cursor would be after 6 and before 7, which is 7 in our case.
 
-Finally, we will cut the comma `,` and place it after `BADOLA`.  
+Finally, we will cut the comma `,` and place it after `BADOLA`.  (case #2)
 Which can also be said as => we will cut `BADOLA` and paste it before the `,`
 
     ↓ paste_location
@@ -137,38 +137,48 @@ Which in code would look like -
         std::cout << name ;    // BADOLA,ABHINAV
     }   
 
-`std::rotate` is not only limited to string permutations but also to all sequenced containers.  
-So all of our above discussion applies to `std::vector` as well.
-
 > A few years back I was astonished when a leading STL expert told me that they discovered that they could use rotate to speed up a quadratic implementation of the insert member function. I assumed that it was self-evident.  
 >   
 > Alexander Stepanov
 
-Unfortunately, our cut-paste algorithm only works if the paste destination is towards the left of cut location.
-How can we create a high-level cut-paste algorithm using rotate?
+`std::rotate` is not only limited to string permutations but also to all sequenced containers.  
+So all of our above discussion applies to `std::vector` as well.
+
+Want to move an element (or a group of elements) to the back of a vector v?
+
+    std::rotate(begin_of_items_to_move, end_of_items_to_move, v.end());
+
+Using rotate as our **cut-paste** algorithm has a limitation.  
+It only works if the *paste_location* is towards the left of *cut_start_location*.  
+
+We can create a high-level cut-paste algorithm using rotate, which would be independent of the direction.
 
     cut_paste(cut_start_location, cut_end_location, paste_location) -> cursor_location
     {
-        if (paste_location < cut_start_location)
+        if (paste_location < cut_start_location)   // handles (case #1)
             return std::rotate(paste_location, cut_start_location, cut_end_location);
-        if (cut_end_location < paste_location)
+            
+        if (cut_end_location < paste_location)     // handles (case #2)
             return std::rotate(cut_start_location, cut_end_location, paste_location);
-        // else - no-operation required, there will be no change in the data
+            
+        // else - no-operation required, there will be no change in the arrangement of data
+        // return the cut_end_location, cause that is where our cursor would be after the operation is complete
+        return cut_end_location; 
     }
 
 Does this code piece seem familiar?  
 Exactly!  
-This is the famous `slide` algorithm by Sean Parent, displayed in his famous talk C++ Seasoning he gave at GoingNative 2013.  
+This is the `slide` algorithm by Sean Parent, presented in his famous C++ Seasoning talk given at GoingNative 2013.  
 You can read more about slide algorithm in https://www.fluentcpp.com/2018/04/20/ways-reordering-collection-stl/
 
-Insertion Sort - A sort that works with forward iterators.  
-Essentially you take a sorted list, cut the element just next to the end of sorted range.
+Another use case of rotate can be seen in Insertion Sort.  
+Essentially you take a sorted list, cut the element just next to the end of sorted range and paste it in its expected location within the sorted list.
 
-    template<class ForwardIterator, class Compare = std::less<>>
-    void insertion_sort(ForwardIterator first, ForwardIterator last, Compare cmp = Compare{})
+    template<typename ForwardIt, typename Compare = std::less<>>
+    void insertion_sort(ForwardIt first, ForwardIt last, Compare cmp = Compare{})
     {
         for (auto it = first; it != last; ++it) {
-            auto const insertion = std::upper_bound(first, it, *it, cmp);
-            std::rotate(insertion, it, std::next(it)); 
+            auto const insertion_point = std::upper_bound(first, it, *it, cmp);
+            std::rotate(insertion_point, it, std::next(it)); 
         }
     }
