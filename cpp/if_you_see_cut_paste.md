@@ -137,7 +137,7 @@ In the same way rotate can be used to move elements to the start of a vector.
 
     std::rotate(v.begin(), begin_of_items_to_move, end_of_items_to_move);
 
-Using rotate as our **cut-paste** algorithm has a limitation.  
+Using rotate as our *cut-paste* algorithm has a limitation.  
 It only works if the *paste_location* is towards the left of *cut_start_location*.  
 Essentially, `std::rotate` is a *left-rotate*.  
 
