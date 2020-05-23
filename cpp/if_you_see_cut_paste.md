@@ -127,10 +127,6 @@ Which in code would look like -
         std::cout << name ;    // BADOLA,ABHINAV
     }   
 
-> A few years back I was astonished when a leading STL expert told me that they discovered that they could use rotate to speed up a quadratic implementation of the insert member function. I assumed that it was self-evident.  
->   
-> Alexander Stepanov
-
 `std::rotate` is not only limited to string permutations but also to all sequenced containers.  
 So all of our above discussion applies to `std::vector` as well.
 
