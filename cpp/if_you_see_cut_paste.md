@@ -6,8 +6,9 @@
 > Alexander Stepanov (http://stepanovpapers.com/notes.pdf, Lecture 19. Rotate)
 
 In this article we would introduce a simple trick to identify when rotate can be useful and how to use it.  
+The article would be incomplete without the critical insights provided by Alex, when he was designing and teaching `rotate` to others.
 
-Unfortunately the return value was not returned by `std::rotate` until C++11. 
+Let us have a look at the signature of `std::rotate`
 
     template< class ForwardIt >
     void rotate( ForwardIt first, ForwardIt n_first, ForwardIt last );      // (until C++11)
@@ -15,15 +16,28 @@ Unfortunately the return value was not returned by `std::rotate` until C++11.
     template< class ForwardIt >
     ForwardIt rotate( ForwardIt first, ForwardIt n_first, ForwardIt last ); // (since C++11)
 
- > I also observed that in many cases when I used rotate I would immediately need to compute the position of the new rotation point, that is, the position where the beginning of the first sub-range ended. Assuming that we are dealing with random-access iterators, after rotate(f, m, l), I would frequently need f + (l – m). Computing it for random-access iterators is trivial, but it is really slow for linked structures. By the way, if we return such an iterator we obtain that
-rotate(f, rotate(f, m, l), l) is an identity permutation. While we cannot use it as a definite proof, the existence of such a property makes me comfortable that we are on the right path. Because of this property, I will call m the old rotation point and the result of rotate – the new rotation point.
+Unfortunately, the return value was not returned by `std::rotate` until C++11.  
+
+> I also observed that in many cases when I used rotate I would immediately need to compute the position of the new rotation point, that is, the position where the beginning of the first sub-range ended.  
+> Assuming that we are dealing with random-access iterators, after `rotate(f, m, l)`, I would frequently need `f + (l – m)`.  
+> Computing it for random-access iterators is trivial, but it is really slow for linked structures.  
+> By the way, if we return such an iterator we obtain that `rotate(f, rotate(f, m, l), l)` is an identity permutation.  
+> While we cannot use it as a definite proof, the existence of such a property makes me comfortable that we are on the right path.  
+> Because of this property, I will call m the old rotation point and the result of rotate – the new rotation point.  
+> The problem was that while I knew what was needed, I did not know how to implement it without incurring a performance penalty for the three-reverses rotate.  
+> This is why when I wrote the specification of rotate for STL in 1994, it was returning `void`.
+>  
+> Stepanov
 
 The one-liner to remember `std::rotate` is :
 > If you see cut-paste, it is std::rotate.
 
 So if you see any use case, where you have to cut the data and paste it somewhere, it can be easily achieved by `std::rotate`.  
 
-In short, we can re-interpret it as :
+In short, we can re-interpret rotate :
+
+    std::rotate(ForwardIt first, ForwardIt n_first, ForwardIt last ) -> ForwardIt 
+as
 
     std::rotate(new_paste_location, cut_start_location, cut_end_location) -> cursor_current_location
 
