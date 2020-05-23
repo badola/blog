@@ -17,16 +17,7 @@ But first, let us have a look at the signature of `std::rotate`
     ForwardIt rotate( ForwardIt first, ForwardIt n_first, ForwardIt last ); // (since C++11)
 
 Unfortunately, the return type of `std::rotate` was `void` until C++11.  
-This shortcoming was also noticed and addressed by Alex. In his own words -  
-> I also observed that in many cases when I used rotate I would immediately need to compute the position of the **new rotation point**, that is, the position where the beginning of the first sub-range ended.  
-> Assuming that we are dealing with random-access iterators, after `rotate(f, m, l)`, I would frequently need `f + (l – m)`.  
-> Computing it for random-access iterators is trivial, but it is really slow for linked structures.  
-> By the way, if we return such an iterator we obtain that `rotate(f, rotate(f, m, l), l)` is an identity permutation.  
-> While we cannot use it as a definite proof, the existence of such a property makes me comfortable that we are on the right path.  
-> Because of this property, I will call `m` the *old rotation point* and the result of rotate – *the new rotation point*.  
-> The problem was that while I knew what was needed, I did not know how to implement it without incurring a performance penalty for the three-reverses rotate.  
-> This is why when I wrote the specification of rotate for STL in 1994, it was returning `void`.
-
+This shortcoming was also noticed and addressed by Alex. 
 In the book *From Mathematics to Generic Programming*, Alexander Stepanov and Daniel Rose then go on to describe the **Law of Useful Return** :  
 > If you’ve already done the work to get some useful result, don’t throw it away.  
 > Return it to the caller.  
@@ -154,7 +145,9 @@ Essentially, `std::rotate` is a *left-rotate*.
 
 If you need a *right-rotate*, use reverse iterators:  
 
+    std::string s = "abcde";
     std::rotate(s.rbegin(), s.rbegin() + 1, s.rend());
+    // s is now "eabcd"
 
 However, we can create a high-level cut-paste algorithm using rotate, which would be independent of the direction.
 
