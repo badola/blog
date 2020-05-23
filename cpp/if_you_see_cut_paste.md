@@ -144,7 +144,7 @@ Which in code would look like -
 `std::rotate` is not only limited to string permutations but also to all sequenced containers.  
 So all of our above discussion applies to `std::vector` as well.
 
-Want to move an element (or a group of elements) to the back of a vector v?
+Want to move an element (or a group of elements) to the back of a vector say `v`?
 
     std::rotate(begin_of_items_to_move, end_of_items_to_move, v.end());
 
