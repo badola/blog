@@ -50,7 +50,7 @@ In short, we can re-interpret rotate :
     std::rotate(ForwardIt first, ForwardIt n_first, ForwardIt last ) -> ForwardIt 
 as
 
-    std::rotate(paste_location, cut_start_location, cut_end_location) -> cursor_current_location
+    std::rotate(paste_location, cut_start_location, cut_end_location) -> cursor_location
 
 So lets learn by taking an example.  
 Suppose you are given a name in the order => `FirstName,LastName`  
@@ -70,24 +70,47 @@ For our ease of understanding, lets index the data as well:
 First we will have to find the location of comma.
 
     auto comma_position = std::find(name.begin(), name.end(), ',');
+    ____________________________________________________________________
+    | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14   |
+    ____________________________________________________________________
+    | A | B | H | I | N | A | V | , | B | A |  D |  O |  L |  A | end()|
+    ____________________________________________________________________
+                                ↑
     // comma_position now points to 7th location
 
 Then we will cut `,BADOLA` and paste it in front of `ABHINAV`
 
-    // std::rotate(paste_location, cut_start_location, cut_end_location) -> cursor_current_location
-    // std::rotate(0             , 7                 , 14              ) -> 7
+    ____________________________________________________________________
+    | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14   |
+    ____________________________________________________________________
+    | A | B | H | I | N | A | V | , | B | A |  D |  O |  L |  A | end()|
+    ____________________________________________________________________
+    ↑                           ↑                               ↑
+    paste_location              cut_start_location              cut_end_location
+    
+    // std::rotate(paste_location, cut_start_location, cut_end_location) -> cursor_location
+    // std::rotate(0             , 7                 , 14              ) -> 7    
     ____________________________________________________________________
     | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14   |
     ____________________________________________________________________
     | , | B | A | D | O | L | A | A | B | H |  I |  N |  A |  V | end()|
     ____________________________________________________________________
                                 ↑
+                                cursor_location
     // It returns 7 since cursor would be after 6 and before 7, which is 7 in our case.
 
 Finally, we will cut the comma `,` and place it after `BADOLA`.  
 Which can also be said as => we will cut `BADOLA` and paste it before the `,`
 
-    // std::rotate(paste_location, cut_start_location, cut_end_location) -> cursor_current_location
+    ↓ paste_location
+    ____________________________________________________________________
+    | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14   |
+    ____________________________________________________________________
+    | , | B | A | D | O | L | A | A | B | H |  I |  N |  A |  V | end()|
+    ____________________________________________________________________
+        ↑                       ↑
+        cut_start_location      cut_end_location/cursor_location
+    // std::rotate(paste_location, cut_start_location, cut_end_location) -> cursor_location
     // std::rotate(0             , 1                 , 7               ) -> 6
     ____________________________________________________________________
     | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14   |
@@ -102,8 +125,8 @@ Which in code would look like -
     void swap_firstname_lastname(std::string & name) // in-place swap
     {
         auto comma_position = std::find(name.begin(), name.end(), ',');
-        auto cursor_current_location = std::rotate(name.begin(), comma_position, name.end());
-        std::rotate(name.begin(), std::next(name.begin()), cursor_current_location);
+        auto cursor_location = std::rotate(name.begin(), comma_position, name.end());
+        std::rotate(name.begin(), std::next(name.begin()), cursor_location);
     }
     
     void test()
@@ -121,4 +144,4 @@ So all of our above discussion applies to `std::vector` as well.
 >   
 > Alexander Stepanov
 
-
+https://www.fluentcpp.com/2018/04/20/ways-reordering-collection-stl/
