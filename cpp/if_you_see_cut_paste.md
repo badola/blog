@@ -89,7 +89,7 @@ Then we will cut `,BADOLA` and paste it in front of `ABHINAV` (case #1)
                                 cursor_location
     // It returns 7 since cursor would be after 6 and before 7, which is 7 in our case.
 
-Finally, we will cut the comma `,` and place it after `BADOLA`.  (case #2)
+Finally, we will cut the comma `,` and place it after `BADOLA`.  (case #2)  
 Which can also be said as => we will cut `BADOLA` and paste it before the `,`
 
     ↓ paste_location
