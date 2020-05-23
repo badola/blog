@@ -22,7 +22,7 @@ In the book *From Mathematics to Generic Programming*, Alexander Stepanov and Da
 > This may allow the caller to get some extra work done “for free”.  
 
 Therefore, since C++11, `std::rotate` returns an iterator to the new position of the previously-last iterator.  
-Maybe it won’t be used, but it was already computed anyway.  
+Maybe it won’t be used, but it was already computed anyway so return it back to the caller.  
 As we will see now, in the below examples, how critical this **Law of Useful Return** can be.  
 
 So here is one-liner to remember when `rotate` is useful:
@@ -108,6 +108,8 @@ Which can also be said as => we will cut `BADOLA` and paste it before the `,`
                             ↑
     // It returns 6 since cursor would be after 5 and before 6, which is 6 in our case.
 
+Notice how we used the value returned by rotate of (case #1) in rotate of (case #2)
+
 Which in code would look like -
     
     void swap_firstname_lastname(std::string & name) // in-place swap
@@ -126,7 +128,7 @@ Which in code would look like -
     }   
 
 `std::rotate` is not only limited to string permutations but also to all sequenced containers.  
-So all of our above discussion applies to `std::vector` as well.
+So all of our above discussion applies to `std::vector`, `std::list`, etc. as well.
 
 Want to move an element (or a group of elements) to the back of a vector say `v`?
 
@@ -146,8 +148,10 @@ If you need a *right-rotate*, use reverse iterators:
     // s is now "eabcd"
 
 However, we can create a high-level cut-paste algorithm using rotate, which would be independent of the direction.
+This algorithm would, however, increase the requirement of the `Iterator` from `LegacyForwardIterator` to `LegacyRandomAccessIterator`.
 
-    cut_paste(cut_start_location, cut_end_location, paste_location) -> cursor_location
+    template<typename Iter> // Iter models LegacyRandomAccessIterator
+    Iter cut_paste(Iter cut_start_location, Iter cut_end_location, Iter paste_location)
     {
         if (paste_location < cut_start_location)   // handles (case #1)
             return std::rotate(paste_location, cut_start_location, cut_end_location);
@@ -164,15 +168,3 @@ Does this code piece seem familiar?
 Exactly!  
 This is the `slide` algorithm by Sean Parent, presented in his famous C++ Seasoning talk given at GoingNative 2013.  
 You can read more about slide algorithm in https://www.fluentcpp.com/2018/04/20/ways-reordering-collection-stl/
-
-Another use case of rotate can be seen in Insertion Sort.  
-Essentially you take a sorted list, cut the element just next to the end of sorted range and paste it in its expected location within the sorted list.
-
-    template<typename ForwardIt, typename Compare = std::less<>>
-    void insertion_sort(ForwardIt first, ForwardIt last, Compare cmp = Compare{})
-    {
-        for (auto it = first; it != last; ++it) {
-            auto const insertion_point = std::upper_bound(first, it, *it, cmp);
-            std::rotate(insertion_point, it, std::next(it)); 
-        }
-    }
