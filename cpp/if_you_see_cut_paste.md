@@ -21,7 +21,7 @@ In the book *From Mathematics to Generic Programming*, Alexander Stepanov and Da
 > Return it to the caller.
 > This may allow the caller to get some extra work done “for free”.
 
-Therefore, since C++11, `std::rotate` returns an iterator to the new location of the element pointed to by first.  
+Therefore, since C++11, `std::rotate` returns an iterator to the new location of the element pointed to by `first`.  
 Maybe the return value won’t be used, but it was already computed anyways, so return it back to the caller.
 
     Initial orientation:
