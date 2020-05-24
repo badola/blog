@@ -196,13 +196,14 @@ Let's start by visualizing this in terms of the trick applied in the previous ex
 
 Using rotate as our *cut-paste* algorithm has a limitation.
 It only works if the *paste_location* is towards the left of *cut_start_location*.
+
 Essentially, `std::rotate` is a *left-rotate*.
 
-If you need a *right-rotate*, use reverse iterators:
+    std::rotate(paste_location, cut_start_location, cut_end_location);
+If you need a *right-rotate*, just reorder the arguments:
 
-    std::string s = "abcdef";
-    std::rotate(s.rbegin(),        std::next(s.rbegin(), 2), s.rend());
-    // s is now "efabcd"
+    std::rotate(cut_start_location, cut_end_location, paste_location);
+
 
 We can create a high level abstration of the cut-paste algorithm using rotate which would be independent of the paste_location. This algorithm would, however, increase the requirement on the `Iterator` from `LegacyForwardIterator` to `LegacyRandomAccessIterator`.
 
