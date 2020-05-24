@@ -191,10 +191,10 @@ We can create a high level abstration of the cut-paste algorithm using rotate wh
     template<typename Iter>                  // Iter models LegacyRandomAccessIterator
     Iter cut_paste(Iter cut_start_location, Iter cut_end_location, Iter paste_location)
     {
-        if (paste_location < cut_start_location)   // handles (case #1), left-rotate
+        if (paste_location < cut_start_location)   // handles left-rotate
             return std::rotate(paste_location, cut_start_location, cut_end_location);
 
-        if (cut_end_location < paste_location)     // handles (case #2), right-rotate
+        if (cut_end_location < paste_location)     // handles right-rotate
             return std::rotate(cut_start_location, cut_end_location, paste_location);
 
         // else - no-operation required, there will be no change in the arrangement of data
