@@ -82,7 +82,7 @@ First we will have to find the location of the comma (step #1).
                                 ↑
     // comma_position now points to 7th location
 
-Then we will cut `,BADOLA` and paste it in front of `ABHINAV` (step #2)
+Then we will cut `,BADOLA` and paste it in front of `ABHINAV` (step #2).
 
     ____________________________________________________________________
     | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14   |
@@ -104,7 +104,7 @@ Then we will cut `,BADOLA` and paste it in front of `ABHINAV` (step #2)
     // The cursor_location returned would be 7 since the cursor would be after 6 and before 7
     // at the end of step #2.
 
-Finally, we will cut the comma `,` and place it after `BADOLA`.  (step #3)  
+Finally, we will cut the comma `,` and place it after `BADOLA`  (step #3).  
 We may rephrase this as => cut `BADOLA` and paste it before the `,`
 
     ↓ paste_location
