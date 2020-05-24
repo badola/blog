@@ -152,16 +152,20 @@ The discussion above applies to `std::vector`, `std::list`, `std::array`, etc. a
 Want to move an element (or a group of elements) to the back of a vector, say `v`?
 Let's start by visualizing this in terms of the trick applied in the previous example.
 
-    Initial orientation:
-    (begin_of_items_to_move, end_of_items_to_move, v.end()-1, v.end())
-     ↑                       ↑                                ↑
-     paste_location          cut_start_location               cut_end_location
-
-    Final orientation:
-    (end_of_items_to_move, v.end()-1, begin_of_items_to_move, v.end())
+                                                 ↓ paste_location
+    _____________________________________________________
+    | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11   |
+    _____________________________________________________
+    | A | B | C | D | E | F | G | H | I | J |  K | end()|
+    _____________________________________________________
+        ↑                       ↑
+        begin_of_items_to_move  end_of_items_to_move
 
     The call to rotate is then,
-    std::rotate(begin_of_items_to_move, end_of_items_to_move, v.end());
+    std::rotate(begin_of_items_to_move, end_of_items_to_move   , paste_location);
+    i.e.
+    std::rotate(std::next(v.begin())  , std::next(v.begin(), 6), v.end()       );
+    
 
 `std::rotate` can also be used to move elements to the start of a vector.
 
