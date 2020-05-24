@@ -30,15 +30,14 @@ Maybe the return value won’t be used, but it was already computed anyways, so 
     Final orientation:
     (n_first, last-1, first, last)
 
-The element pointed to by first eventually ends up next to the element pointed to by last-1.
+The element pointed to by `first` eventually ends up next to the element pointed to by `last-1`.
 Therefore it's new location is:
 
     first + ( (last - 1) - n_first + 1 )
-
+    
     or, in simpler terms
-
     first + ( last - n_first )
-
+`first + (last - n_first)` is the value returned by rotate since C++11.  
 The examples below will show, how critical this **Law of Useful Return** can be.
 
 So here is a one-liner to remember when `rotate` can be useful:
