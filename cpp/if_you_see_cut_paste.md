@@ -185,7 +185,7 @@ Let's start by visualizing this in terms of the trick applied in the previous ex
 
     std::rotate(paste_location, begin_of_items_to_move, end_of_items_to_move     );
     i.e.
-    std::rotate(v.begin().    , std::next(v.begin(), 4), std::next(v.begin(), 10));
+    std::rotate(v.begin()     , std::next(v.begin(), 4), std::next(v.begin(), 10));
     _____________________________________________________
     | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11   |
     _____________________________________________________
