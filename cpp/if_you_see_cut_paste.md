@@ -5,7 +5,7 @@
 >
 > Alexander Stepanov (http://stepanovpapers.com/notes.pdf, Lecture 19. Rotate)
 
-In this article we will learn about a simple trick to identify when rotate can be useful and how to use it.
+In this article we will learn about a simple trick to identify when rotate can be useful and how to use it.  
 But first, let us have a look at the signature of `std::rotate`
 
     template< class ForwardIt >
@@ -14,14 +14,14 @@ But first, let us have a look at the signature of `std::rotate`
     template< class ForwardIt >
     ForwardIt rotate( ForwardIt first, ForwardIt n_first, ForwardIt last ); // (since C++11)
 
-Unfortunately, the return type of `std::rotate` was `void` until C++11.
-This shortcoming was noticed and addressed by Stepanov.
+Unfortunately, the return type of `std::rotate` was `void` until C++11.  
+This shortcoming was noticed and addressed by Stepanov.  
 In the book *From Mathematics to Generic Programming*, Alexander Stepanov and Daniel Rose go on to describe the **Law of Useful Return** :
 > If you’ve already done the work to get some useful result, don’t throw it away.
 > Return it to the caller.
 > This may allow the caller to get some extra work done “for free”.
 
-Therefore, since C++11, `std::rotate` returns an iterator to the new location of the element pointed to by first.
+Therefore, since C++11, `std::rotate` returns an iterator to the new location of the element pointed to by first.  
 Maybe the return value won’t be used, but it was already computed anyways, so return it back to the caller.
 
     Initial orientation:
@@ -53,15 +53,15 @@ as
 
     rotate(paste_location, cut_start_location, cut_end_location) -> cursor_location(after pasting)
 
-So, if you have a use case where you have to **cut** data and **paste** it somewhere, it can be easily achieved by `rotate`.
+So, if you have a use case where you have to **cut** data and **paste** it somewhere, it can be easily achieved by `rotate`.  
 This power of `rotate` comes from the fact that all the elements cut, move together.
 
-Let's strengthen our learning by taking an example.
-Suppose you are given a name in the format => `FirstName,LastName`
-You are required to transform it into => `LastName,FirstName`
+Let's strengthen our learning by taking an example.  
+Suppose you are given a name in the format => `FirstName,LastName`  
+You are required to transform it into => `LastName,FirstName`  
 
-How would you go about doing it using cut and paste on a text editor?
-For our example, we will use the name => `ABHINAV,BADOLA`
+How would you go about doing it using cut and paste on a text editor?  
+For our example, we will use the name => `ABHINAV,BADOLA`  
 
 To make things simpler, lets index the data as well:
 
