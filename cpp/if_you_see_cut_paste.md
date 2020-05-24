@@ -161,24 +161,38 @@ Let's start by visualizing this in terms of the trick applied in the previous ex
         ↑                       ↑
         begin_of_items_to_move  end_of_items_to_move
 
-    The call to rotate is then,
     std::rotate(begin_of_items_to_move, end_of_items_to_move   , paste_location);
     i.e.
-    std::rotate(std::next(v.begin())  , std::next(v.begin(), 6), v.end()       );
-    
+    std::rotate(std::next(v.begin())  , std::next(v.begin(), 7), v.end()       );
+    _____________________________________________________
+    | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11   |
+    _____________________________________________________
+    | A | H | I | J | K | B | C | D | E | F |  G | end()|
+    _____________________________________________________
+                        ↑
+                        cursor_location    
 
 `std::rotate` can also be used to move elements to the start of a vector.
 
-    Initial orientation:
-    (v.begin(),       begin_of_elements_to_move, end_of_elements_to_move-1, end_of_elements_to_move)
-     ↑                ↑                                                     ↑
-     paste_location   cut_start_location                                    cut_end_location
+    ↓ paste_location
+    _____________________________________________________
+    | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11   |
+    _____________________________________________________
+    | A | B | C | D | E | F | G | H | I | J |  K | end()|
+    _____________________________________________________
+                    ↑                       ↑
+                    begin_of_items_to_move  end_of_items_to_move
 
-    Final orientation:
-    (begin_of_elements_to_move, end_of_elements_to_move-1, element_pointed_to_by_begin, end_of_elements_to_move)
-
-    This translates to:
-    std::rotate(v.begin(), begin_of_items_to_move, end_of_items_to_move);
+    std::rotate(paste_location, begin_of_items_to_move, end_of_items_to_move     );
+    i.e.
+    std::rotate(v.begin().    , std::next(v.begin(), 4), std::next(v.begin(), 10));
+    _____________________________________________________
+    | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11   |
+    _____________________________________________________
+    | E | F | G | H | I | J | A | B | C | D |  K | end()|
+    _____________________________________________________
+                            ↑
+                            cursor_location    
 
 Using rotate as our *cut-paste* algorithm has a limitation.
 It only works if the *paste_location* is towards the left of *cut_start_location*.
