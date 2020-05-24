@@ -186,7 +186,7 @@ If you need a *right-rotate*, use reverse iterators:
     std::rotate(s.rbegin(),        std::next(s.rbegin(), 2), s.rend());
     // s is now "efabcd"
 
-We can create a high level abstration of the cut-paste algorithm using rotate which would be independent of the paste_location.
+We can create a high level abstration of the cut-paste algorithm using rotate which would be independent of the paste_location.  
 This algorithm would, however, increase the requirement on the `Iterator` from `LegacyForwardIterator` to `LegacyRandomAccessIterator`.
 
     template<typename Iter>                  // Iter models LegacyRandomAccessIterator
@@ -203,7 +203,7 @@ This algorithm would, however, increase the requirement on the `Iterator` from `
         return cut_end_location;
     }
 
-Does this piece of code seem familiar?
-Exactly!
-This is the `slide` algorithm by Sean Parent, presented in his famous C++ Seasoning talk given at GoingNative 2013.
+Does this piece of code seem familiar?  
+Exactly!  
+This is the `slide` algorithm by Sean Parent, presented in his famous C++ Seasoning talk given at GoingNative 2013.  
 You can read more about the slide algorithm at https://www.fluentcpp.com/2018/04/20/ways-reordering-collection-stl/
