@@ -5,8 +5,7 @@
 >
 > Alexander Stepanov (http://stepanovpapers.com/notes.pdf, Lecture 19. Rotate)
 
-In this article we will learn about a simple trick to identify when rotate can be useful and how to use it.  
-But first, let us have a look at the signature of `std::rotate`
+In this article we will learn about a simple trick to identify when rotate can be useful and how to use it. But first, let us have a look at the signature of `std::rotate`
 
     template< class ForwardIt >
     void rotate( ForwardIt first, ForwardIt n_first, ForwardIt last );      // (until C++11)
@@ -14,24 +13,25 @@ But first, let us have a look at the signature of `std::rotate`
     template< class ForwardIt >
     ForwardIt rotate( ForwardIt first, ForwardIt n_first, ForwardIt last ); // (since C++11)
 
-Unfortunately, the return type of `std::rotate` was `void` until C++11.  
-This shortcoming was noticed and addressed by Stepanov.  
-In the book *From Mathematics to Generic Programming*, Alexander Stepanov and Daniel Rose go on to describe the **Law of Useful Return** :
+Unfortunately, the return type of `std::rotate` was `void` until C++11. This shortcoming was noticed and addressed by Stepanov.  
+
+In the book *From Mathematics to Generic Programming*, **Alexander Stepanov** and **Daniel Rose** describe a very simple yet powerful rule called **Law of Useful Return** :
+
 > If you’ve already done the work to get some useful result, don’t throw it away.
 > Return it to the caller.
 > This may allow the caller to get some extra work done “for free”.
 
-Therefore, since C++11, `std::rotate` returns an iterator to the new location of the element pointed to by `first`.  
-Maybe the return value won’t be used, but it was already computed anyways, so return it back to the caller.
+Therefore, since C++11, `std::rotate` returns an iterator to the new location of the element earlier pointed to by `first`, as it was already computed as a result of carrying out its main task &mdash; even though the return value may eventually be ignored by the caller if not needed.
 
     Initial orientation:
-    (first, n_first, last-1, last)
+    (first, .. , n_first, .., last-1, |last|)
 
     Final orientation:
-    (n_first, last-1, first, last)
+    (n_first, .., last-1, first, .., |last|) # note that last, as it isn't dereferenceable, is special and does not change its position
+    
 
 The element pointed to by `first` eventually ends up next to the element pointed to by `last-1`.
-Therefore it's new location is:
+Therefore its new location is:
 
     first + ( (last - 1) - n_first + 1 )
     
