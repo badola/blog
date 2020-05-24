@@ -15,19 +15,22 @@ But first, let us have a look at the signature of `std::rotate`
     ForwardIt rotate( ForwardIt first, ForwardIt n_first, ForwardIt last ); // (since C++11)
 
 Unfortunately, the return type of `std::rotate` was `void` until C++11.  
-This shortcoming was also noticed and addressed by Stepanov. 
+This shortcoming was noticed and addressed by Stepanov. 
 In the book *From Mathematics to Generic Programming*, Alexander Stepanov and Daniel Rose go on to describe the **Law of Useful Return** :  
 > If you’ve already done the work to get some useful result, don’t throw it away.  
 > Return it to the caller.  
 > This may allow the caller to get some extra work done “for free”.  
 
 Therefore, since C++11, `std::rotate` returns an iterator to the new location of the element pointed to by first.
+
     Initial orientation:
     (first, n_first, last-1, last)
     Final orientation:
     (n_first, last-1, first, last)
+
 The element pointed to by first eventually ends up next to the element pointed to by last-1.
 Therefore it's new location is:
+
     first + ( (last - 1) - n_first + 1 )
     or, in simpler terms
     first + ( last - n_first )
@@ -95,7 +98,8 @@ Then we will cut `,BADOLA` and paste it in front of `ABHINAV` (step #2)
     ____________________________________________________________________
                                 ↑
                                 cursor_location
-    // The cursor_location returned would be 7 since the cursor would be after 6 and before 7 at the end of step #2.
+    // The cursor_location returned would be 7 since the cursor would be after 6 and before 7
+    // at the end of step #2.
 
 Finally, we will cut the comma `,` and place it after `BADOLA`.  (step #3)  
 We may rephrase this as => cut `BADOLA` and paste it before the `,`
@@ -117,7 +121,8 @@ We may rephrase this as => cut `BADOLA` and paste it before the `,`
     | B | A | D | O | L | A | , | A | B | H |  I |  N |  A |  V | end()|
     ____________________________________________________________________
                             ↑
-    // The cursor_location returned would be 6 since the cursor would be after 5 and before 6 at the end of step #3.
+    // The cursor_location returned would be 6 since the cursor would be after 5 and before 6
+    // at the end of step #3.
 
 **Notice how we used the value returned by the rotate of (step #2) in the rotate of (step #3)**
 
@@ -143,6 +148,7 @@ The discussion above applies to `std::vector`, `std::list`, `std::array`, etc. a
 
 Want to move an element (or a group of elements) to the back of a vector, say `v`?
 Let's start by visualizing this in terms of the trick applied in the previous example.
+
     Initial orientation:
     (begin_of_items_to_move, end_of_items_to_move, v.end()-1, v.end())
      ↑                       ↑                                ↑
@@ -154,6 +160,7 @@ Let's start by visualizing this in terms of the trick applied in the previous ex
     std::rotate(begin_of_items_to_move, end_of_items_to_move, v.end());
 
 `std::rotate` can also be used to move elements to the start of a vector.
+
     Initial orientation:
     (v.begin(),       begin_of_elements_to_move, end_of_elements_to_move-1, end_of_elements_to_move)
      ↑                ↑                                                     ↑
