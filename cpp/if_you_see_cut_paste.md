@@ -214,25 +214,22 @@ Essentially, `std::rotate` is a *left-rotate*.
 ```cpp
 auto paste_end = std::rotate(paste_begin, cut_begin, cut_end);
 ```
-If you need a *right-rotate*, just reorder the arguments:
-```cpp
-auto paste_end = std::rotate(cut_begin, cut_end, paste_begin);
-```
 
 We can create a high level abstration of the cut-paste algorithm using rotate which would be independent of the `paste_begin`. This algorithm would, however, increase the requirement on the `Iterator` from `LegacyForwardIterator` to `LegacyRandomAccessIterator`.
 ```cpp
-template<typename Iter>   // Iter models LegacyRandomAccessIterator
-Iter cut_paste(Iter cut_begin, Iter cut_end, Iter paste_begin)
+template<typename It>   // It models LegacyRandomAccessIterator
+auto cut_paste(It cut_begin, It cut_end, It paste_begin)
+    -> std::pair<It, It> 
 {
     if (paste_begin < cut_begin)   // handles left-rotate
-        return std::rotate(paste_begin, cut_begin, cut_end);
+        return { paste_begin, std::rotate(paste_begin, cut_begin, cut_end) };
 
     if (cut_end < paste_begin)     // handles right-rotate
-        return std::rotate(cut_begin, cut_end, paste_begin);
+        return { std::rotate(cut_begin, cut_end, paste_begin), paste_begin };
 
     // else - no-operation required, there will be no change in the arrangement of data
     // return the cut_end, cause that is where our paste_end should be if the operation was performed
-    return cut_end;
+    return { cut_begin, cut_end };
 }
 ```
 Does this piece of code seem familiar?  
