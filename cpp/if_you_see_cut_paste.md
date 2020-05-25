@@ -108,7 +108,7 @@ Then we will cut `,BADOLA` and paste it in front of `ABHINAV` (step #2).
 Finally, we will cut the comma `,` and paste it after `BADOLA`  (step #3).  
 We may rephrase this as => cut `BADOLA` and paste it before the `,`
 
-    ↓ paste_location
+    ↓ paste_begin
     ____________________________________________________________________
     | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14   |
     ____________________________________________________________________
@@ -152,14 +152,13 @@ The discussion above applies to `std::vector`, `std::list`, `std::array`, etc. a
 Want to move an element (or a group of elements) to the start of a vector, say `v`?
 Let's start by visualizing this in terms of the trick applied in the previous example.
 
-    ↓ paste_begin
     _____________________________________________________
     | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11   |
     _____________________________________________________
     | A | B | C | D | E | F | G | H | I | J |  K | end()|
     _____________________________________________________
-                    ↑                       ↑
-                    cut_begin               cut_end
+    ↑               ↑                       ↑
+    paste_begin     cut_begin               cut_end
 ```cpp
 auto paste_begin = v.begin();
 auto cut_begin = std::next(v.begin(), 4);
@@ -176,19 +175,29 @@ auto paste_end = std::rotate(paste_begin, cut_begin, cut_end);
 
 `std::rotate` can also be used to move elements to the back of a vector.
 
-                                                 ↓ paste_begin
     _____________________________________________________
     | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11   |
     _____________________________________________________
     | A | B | C | D | E | F | G | H | I | J |  K | end()|
     _____________________________________________________
-        ↑                       ↑
-        cut_begin               cut_end
+        ↑                       ↑                ↑
+        cut_begin               cut_end          paste_begin
+        
+    which needs to be reinterpreted as
+    
+    _____________________________________________________
+    | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11   |
+    _____________________________________________________
+    | A | B | C | D | E | F | G | H | I | J |  K | end()|
+    _____________________________________________________
+        ↑                       ↑                ↑
+        paste_begin             cut_begin        cut_end
+
 ```cpp
-auto cut_begin = std::next(v.begin());
-auto cut_end = std::next(v.begin(), 7);
-auto paste_begin = v.end();
-auto paste_end = std::rotate(cut_begin, cut_end, paste_begin);
+auto paste_begin = std::next(v.begin());
+auto cut_begin = std::next(v.begin(), 7);
+auto cut_end = v.end();
+auto paste_end = std::rotate(paste_begin, cut_begin, cut_end);
 ```
     _____________________________________________________
     | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11   |
