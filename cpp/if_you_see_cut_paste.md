@@ -231,5 +231,5 @@ auto cut_paste(It cut_begin, It cut_end, It paste_begin)
 ```
 Does this piece of code seem familiar?  
 Exactly!  
-This is the `slide` algorithm by Sean Parent, presented in his famous C++ Seasoning talk given at GoingNative 2013.  
+This is the **slide** algorithm by Sean Parent, presented in his famous C++ Seasoning talk given at GoingNative 2013.  
 You can read more about the slide algorithm at https://www.fluentcpp.com/2018/04/20/ways-reordering-collection-stl/
