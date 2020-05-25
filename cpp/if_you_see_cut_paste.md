@@ -149,32 +149,8 @@ void test()
 The application of `std::rotate` is not only limited to string permutations, it may also be used with all the sequenced containers.
 The discussion above applies to `std::vector`, `std::list`, `std::array`, etc. as well.
 
-Want to move an element (or a group of elements) to the back of a vector, say `v`?
+Want to move an element (or a group of elements) to the start of a vector, say `v`?
 Let's start by visualizing this in terms of the trick applied in the previous example.
-
-                                                 ↓ paste_begin
-    _____________________________________________________
-    | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11   |
-    _____________________________________________________
-    | A | B | C | D | E | F | G | H | I | J |  K | end()|
-    _____________________________________________________
-        ↑                       ↑
-        cut_begin               cut_end
-```cpp
-auto cut_begin = std::next(v.begin());
-auto cut_end = std::next(v.begin(), 7);
-auto paste_begin = v.end();
-auto paste_end = std::rotate(cut_begin, cut_end, paste_begin);
-```
-    _____________________________________________________
-    | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11   |
-    _____________________________________________________
-    | A | H | I | J | K | B | C | D | E | F |  G | end()|
-    _____________________________________________________
-                        ↑
-                        paste_end    
-
-`std::rotate` can also be used to move elements to the start of a vector.
 
     ↓ paste_begin
     _____________________________________________________
@@ -197,6 +173,30 @@ auto paste_end = std::rotate(paste_begin, cut_begin, cut_end);
     _____________________________________________________
                             ↑
                             paste_end    
+
+`std::rotate` can also be used to move elements to the back of a vector.
+
+                                                 ↓ paste_begin
+    _____________________________________________________
+    | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11   |
+    _____________________________________________________
+    | A | B | C | D | E | F | G | H | I | J |  K | end()|
+    _____________________________________________________
+        ↑                       ↑
+        cut_begin               cut_end
+```cpp
+auto cut_begin = std::next(v.begin());
+auto cut_end = std::next(v.begin(), 7);
+auto paste_begin = v.end();
+auto paste_end = std::rotate(cut_begin, cut_end, paste_begin);
+```
+    _____________________________________________________
+    | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11   |
+    _____________________________________________________
+    | A | H | I | J | K | B | C | D | E | F |  G | end()|
+    _____________________________________________________
+                        ↑
+                        paste_end    
 
 Using rotate as our *cut-paste* algorithm has a limitation.
 It only works if the *paste_begin* is towards the left of *cut_begin*.
