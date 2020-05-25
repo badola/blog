@@ -52,7 +52,7 @@ rotate(ForwardIt first, ForwardIt n_first, ForwardIt last) -> ForwardIt
 ```
 as
 ```
-rotate(paste_location, cut_start_location, cut_end_location) -> cursor_location(after pasting)
+rotate(paste_begin, cut_begin, cut_end) -> paste_end
 ```
 So, if you have a use case where you have to **cut** data and **paste** it somewhere, it can be easily achieved by `rotate`.  
 This power of `rotate` comes from the fact that all the elements cut, move together.
@@ -91,21 +91,21 @@ Then we will cut `,BADOLA` and paste it in front of `ABHINAV` (step #2).
     | A | B | H | I | N | A | V | , | B | A |  D |  O |  L |  A | end()|
     ____________________________________________________________________
     ↑                           ↑                               ↑
-    paste_location              cut_start_location              cut_end_location
+    paste_begin                 cut_begin                       cut_end
 
-    // std::rotate(paste_location, cut_start_location, cut_end_location) -> cursor_location
-    // std::rotate(0             , 7                 , 14              ) -> 7
+    // std::rotate(paste_begin, cut_begin, cut_end) -> paste_end
+    // std::rotate(0          , 7        , 14     ) -> 7
     ____________________________________________________________________
     | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14   |
     ____________________________________________________________________
     | , | B | A | D | O | L | A | A | B | H |  I |  N |  A |  V | end()|
     ____________________________________________________________________
                                 ↑
-                                cursor_location
-    // The cursor_location returned would be 7 since the cursor would be after 6 and before 7
+                                paste_end
+    // The paste_end returned would be 7 since it would be after 6 and before 7
     // at the end of step #2.
 
-Finally, we will cut the comma `,` and place it after `BADOLA`  (step #3).  
+Finally, we will cut the comma `,` and paste it after `BADOLA`  (step #3).  
 We may rephrase this as => cut `BADOLA` and paste it before the `,`
 
     ↓ paste_location
@@ -115,18 +115,17 @@ We may rephrase this as => cut `BADOLA` and paste it before the `,`
     | , | B | A | D | O | L | A | A | B | H |  I |  N |  A |  V | end()|
     ____________________________________________________________________
         ↑                       ↑
-        cut_start_location      cut_end_location/cursor_location
+        cut_begin               cut_end / paste_end(step #2)
 
-    // std::rotate(paste_location, cut_start_location, cut_end_location) -> cursor_location
-    // std::rotate(0             , 1                 , 7               ) -> 6
+    // std::rotate(paste_begin, cut_begin, cut_end) -> paste_end
+    // std::rotate(0          , 1        , 7      ) -> 6
     ____________________________________________________________________
     | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14   |
     ____________________________________________________________________
     | B | A | D | O | L | A | , | A | B | H |  I |  N |  A |  V | end()|
     ____________________________________________________________________
                             ↑
-    // The cursor_location returned would be 6 since the cursor would be after 5 and before 6
-    // at the end of step #3.
+                            paste_end
 
 **Notice how we used the value returned by the rotate of (step #2) in the rotate of (step #3)**
 
@@ -134,9 +133,9 @@ In code this would look like -
 ```cpp
 void swap_firstname_lastname(std::string & name) // in-place swap
 {
-    auto const comma_position = std::find(name.begin(), name.end(), ',');               // step #1
-    auto const cursor_location = std::rotate(name.begin(), comma_position, name.end()); // step #2
-    std::rotate(name.begin(), std::next(name.begin()), cursor_location);                // step #3
+    auto const comma_position = std::find(name.begin(), name.end(), ',');         // step #1
+    auto const paste_end = std::rotate(name.begin(), comma_position, name.end()); // step #2
+    std::rotate(name.begin(), std::next(name.begin()), paste_end);                // step #3
 }
 
 void test()
@@ -153,19 +152,19 @@ The discussion above applies to `std::vector`, `std::list`, `std::array`, etc. a
 Want to move an element (or a group of elements) to the back of a vector, say `v`?
 Let's start by visualizing this in terms of the trick applied in the previous example.
 
-                                                 ↓ paste_location
+                                                 ↓ paste_begin
     _____________________________________________________
     | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11   |
     _____________________________________________________
     | A | B | C | D | E | F | G | H | I | J |  K | end()|
     _____________________________________________________
         ↑                       ↑
-        begin_of_items_to_move  end_of_items_to_move
+        cut_begin               cut_end
 ```cpp
-auto begin_of_items_to_move = std::next(v.begin());
-auto end_of_items_to_move = std::next(v.begin(), 7);
-auto paste_location = v.end();
-auto cursor_location = std::rotate(begin_of_items_to_move, end_of_items_to_move, paste_location);
+auto cut_begin = std::next(v.begin());
+auto cut_end = std::next(v.begin(), 7);
+auto paste_begin = v.end();
+auto paste_end = std::rotate(cut_begin, cut_end, paste_begin);
 ```
     _____________________________________________________
     | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11   |
@@ -173,23 +172,23 @@ auto cursor_location = std::rotate(begin_of_items_to_move, end_of_items_to_move,
     | A | H | I | J | K | B | C | D | E | F |  G | end()|
     _____________________________________________________
                         ↑
-                        cursor_location    
+                        paste_end    
 
 `std::rotate` can also be used to move elements to the start of a vector.
 
-    ↓ paste_location
+    ↓ paste_begin
     _____________________________________________________
     | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11   |
     _____________________________________________________
     | A | B | C | D | E | F | G | H | I | J |  K | end()|
     _____________________________________________________
                     ↑                       ↑
-                    begin_of_items_to_move  end_of_items_to_move
+                    cut_begin               cut_end
 ```cpp
-auto paste_location = v.begin();
-auto begin_of_items_to_move = std::next(v.begin(), 4);
-auto end_of_items_to_move = std::next(v.begin(), 10);
-auto cursor_location = std::rotate(paste_location, begin_of_items_to_move, end_of_items_to_move);
+auto paste_begin = v.begin();
+auto cut_begin = std::next(v.begin(), 4);
+auto cut_end = std::next(v.begin(), 10);
+auto paste_end = std::rotate(paste_begin, cut_begin, cut_end);
 ```
     _____________________________________________________
     | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11   |
@@ -197,33 +196,34 @@ auto cursor_location = std::rotate(paste_location, begin_of_items_to_move, end_o
     | E | F | G | H | I | J | A | B | C | D |  K | end()|
     _____________________________________________________
                             ↑
-                            cursor_location    
+                            paste_end    
 
 Using rotate as our *cut-paste* algorithm has a limitation.
-It only works if the *paste_location* is towards the left of *cut_start_location*.
+It only works if the *paste_begin* is towards the left of *cut_begin*.
 
 Essentially, `std::rotate` is a *left-rotate*.
-
-    std::rotate(paste_location, cut_start_location, cut_end_location);
+```cpp
+auto paste_end = std::rotate(paste_begin, cut_begin, cut_end);
+```
 If you need a *right-rotate*, just reorder the arguments:
+```cpp
+auto paste_end = std::rotate(cut_begin, cut_end, paste_begin);
+```
 
-    std::rotate(cut_start_location, cut_end_location, paste_location);
-
-
-We can create a high level abstration of the cut-paste algorithm using rotate which would be independent of the paste_location. This algorithm would, however, increase the requirement on the `Iterator` from `LegacyForwardIterator` to `LegacyRandomAccessIterator`.
+We can create a high level abstration of the cut-paste algorithm using rotate which would be independent of the `paste_begin`. This algorithm would, however, increase the requirement on the `Iterator` from `LegacyForwardIterator` to `LegacyRandomAccessIterator`.
 ```cpp
 template<typename Iter>   // Iter models LegacyRandomAccessIterator
-Iter cut_paste(Iter cut_start_location, Iter cut_end_location, Iter paste_location)
+Iter cut_paste(Iter cut_begin, Iter cut_end, Iter paste_begin)
 {
-    if (paste_location < cut_start_location)   // handles left-rotate
-        return std::rotate(paste_location, cut_start_location, cut_end_location);
+    if (paste_begin < cut_begin)   // handles left-rotate
+        return std::rotate(paste_begin, cut_begin, cut_end);
 
-    if (cut_end_location < paste_location)     // handles right-rotate
-        return std::rotate(cut_start_location, cut_end_location, paste_location);
+    if (cut_end < paste_begin)     // handles right-rotate
+        return std::rotate(cut_begin, cut_end, paste_begin);
 
     // else - no-operation required, there will be no change in the arrangement of data
-    // return the cut_end_location, cause that is where our cursor should be if the operation was done
-    return cut_end_location;
+    // return the cut_end, cause that is where our paste_end should be if the operation was performed
+    return cut_end;
 }
 ```
 Does this piece of code seem familiar?  
