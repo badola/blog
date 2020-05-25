@@ -160,10 +160,10 @@ Let's start by visualizing this in terms of the trick applied in the previous ex
     ↑               ↑                       ↑
     paste_begin     cut_begin               cut_end
 ```cpp
-auto paste_begin = v.begin();
-auto cut_begin = std::next(v.begin(), 4);
-auto cut_end = std::next(v.begin(), 10);
-auto paste_end = std::rotate(paste_begin, cut_begin, cut_end);
+auto const paste_begin = v.begin();
+auto const cut_begin = std::next(v.begin(), 4);
+auto const cut_end = std::next(v.begin(), 10);
+auto const paste_end = std::rotate(paste_begin, cut_begin, cut_end);
 ```
     _____________________________________________________
     | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11   |
@@ -183,7 +183,7 @@ auto paste_end = std::rotate(paste_begin, cut_begin, cut_end);
         ↑                       ↑                ↑
         cut_begin               cut_end          paste_begin
         
-    which needs to be reinterpreted as
+    which needs to be reinterpreted as follows(since std::rotate is, by default, a left rotate):
     
     _____________________________________________________
     | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11   |
@@ -194,10 +194,10 @@ auto paste_end = std::rotate(paste_begin, cut_begin, cut_end);
         paste_begin             cut_begin        cut_end
 
 ```cpp
-auto paste_begin = std::next(v.begin());
-auto cut_begin = std::next(v.begin(), 7);
-auto cut_end = v.end();
-auto paste_end = std::rotate(paste_begin, cut_begin, cut_end);
+auto const paste_begin = std::next(v.begin());
+auto const cut_begin = std::next(v.begin(), 7);
+auto const cut_end = v.end();
+auto const paste_end = std::rotate(paste_begin, cut_begin, cut_end);
 ```
     _____________________________________________________
     | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11   |
@@ -210,7 +210,7 @@ auto paste_end = std::rotate(paste_begin, cut_begin, cut_end);
 Using rotate as our *cut-paste* algorithm has a limitation. It only works if the `paste_begin` is towards the left of `cut_begin`.  
 Essentially, `std::rotate` is a *left-rotate*.
 ```cpp
-auto paste_end = std::rotate(paste_begin, cut_begin, cut_end);
+auto const paste_end = std::rotate(paste_begin, cut_begin, cut_end);
 ```
 
 We can create a high level abstration of the cut-paste algorithm using rotate which would be independent of the relative-positioning of `paste_begin` and `[cut_begin, cut_end)`. This algorithm would, however, increase the requirement on the `Iterator` from `LegacyForwardIterator` to `LegacyRandomAccessIterator`.
@@ -219,17 +219,105 @@ template<typename It>              // It models LegacyRandomAccessIterator
 auto cut_paste(It cut_begin, It cut_end, It paste_begin)
     -> std::pair<It, It>           // return the new location of the range [cut_begin, cut_end)
 {
-    if (paste_begin < cut_begin)   // handles left-rotate
-        return { paste_begin, std::rotate(paste_begin, cut_begin, cut_end) };
+    if (paste_begin < cut_begin)   // handles left-rotate(case #1)
+    {
+        auto const updated_cut_begin = paste_begin;
+        auto const updated_cut_end = std::rotate(paste_begin, cut_begin, cut_end);
+        return { updated_cut_begin, updated_cut_end };
+    }
 
-    if (cut_end < paste_begin)     // handles right-rotate
-        return { std::rotate(cut_begin, cut_end, paste_begin), paste_begin };
+    if (cut_end < paste_begin)     // handles right-rotate(case #2)
+    {
+        // Reinterpreting the right-rotate as a left rotate
+        auto const updated_cut_begin = std::rotate(cut_begin, cut_end, paste_begin);
+        auto const updated_cut_end = paste_begin;
+        return { updated_cut_begin, updated_cut_end };
+    }
 
-    // else - no-operation required, there will be no change in the arrangement of data
-    return { cut_begin, cut_end };
+    // else - no-operation required, there will be no change in the relative arrangement of data
+    return { cut_begin, cut_end };(case #3)
 }
-```
+
 Does this piece of code seem familiar?  
 Exactly!  
 This is the **slide** algorithm by Sean Parent, presented in his famous C++ Seasoning talk given at GoingNative 2013.  
 You can read more about the slide algorithm at https://www.fluentcpp.com/2018/04/20/ways-reordering-collection-stl/
+
+```
+Let's explore the working of this algorithm visually, focussing in particular, on the return value.
+
+    Case #1 (left rotate)
+    _____________________________________________________
+    | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11   |
+    _____________________________________________________
+    | A | B | C | D | E | F | G | H | I | J |  K | end()|
+    _____________________________________________________
+        ↑               ↑                   ↑
+        paste_begin     cut_begin           cut_end
+
+    Clearly, paste_begin < cut_begin
+    Thus, the new location of the range [cut_begin, cut_end) is given by:
+
+    auto const updated_cut_begin = paste_begin;
+    auto const updated_cut_end = std::rotate(paste_begin, cut_begin, cut_end);
+
+    _____________________________________________________
+    | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11   |
+    _____________________________________________________
+    | A | F | G | H | I | J | B | C | D | E |  K | end()|
+    _____________________________________________________
+        ↑                   ↑
+        updated_cut_begin   updated_cut_end
+
+    Case #2 (right rotate)
+    _____________________________________________________
+    | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11   |
+    _____________________________________________________
+    | A | B | C | D | E | F | G | H | I | J |  K | end()|
+    _____________________________________________________
+        ↑               ↑                   ↑
+        cut_begin       cut_end             paste_begin
+
+    Clearly, cut_end < paste_begin
+    We begin by reinterpreting this case in terms of a left rotate whereby,
+
+    auto const l_paste_begin = cut_begin;
+    auto const l_cut_begin = cut_end;
+    auto const l_cut_end = paste_begin;
+
+    _____________________________________________________
+    | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11   |
+    _____________________________________________________
+    | A | B | C | D | E | F | G | H | I | J |  K | end()|
+    _____________________________________________________
+        ↑               ↑                   ↑
+        cut_begin       cut_end             paste_begin
+        l_paste_begin   l_cut_begin         l_cut_end
+
+    In terms of a left-rotate, the paste_end(l_paste_end) is given by:
+    auto const l_paste_end = std::rotate(l_paste_begin, l_cut_begin, l_cut_end);
+
+    _____________________________________________________
+    | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11   |
+    _____________________________________________________
+    | A | F | G | H | I | J | B | C | D | E |  K | end()|
+    _____________________________________________________
+        ↑                   ↑               ↑
+        l_paste_begin       l_paste_end     paste_begin
+
+    What we wish to return is the updated position of the range [cut_begin, cut_end)
+    This is given by:
+
+    { l_paste_end, paste_begin } or more simply by substituting for l_ variables
+    auto const updated_cut_begin = std::rotate(cut_begin, cut_end, paste_begin);
+    auto const updated_cut_end = paste_begin;
+
+    Case #3
+    _____________________________________________________
+    | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11   |
+    _____________________________________________________
+    | A | F | G | H | I | J | B | C | D | E |  K | end()|
+    _____________________________________________________
+        ↑                   ↑               ↑
+        cut_begin           paste_begin     cut_end
+    This is a no-op as it does not change the relative arrangement of the elements
