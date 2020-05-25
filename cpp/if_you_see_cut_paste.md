@@ -226,7 +226,6 @@ auto cut_paste(It cut_begin, It cut_end, It paste_begin)
         return { std::rotate(cut_begin, cut_end, paste_begin), paste_begin };
 
     // else - no-operation required, there will be no change in the arrangement of data
-    // return the cut_end, cause that is where our paste_end should be if the operation was performed
     return { cut_begin, cut_end };
 }
 ```
