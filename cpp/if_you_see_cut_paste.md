@@ -212,7 +212,7 @@ If you need a *right-rotate*, just reorder the arguments:
 
 We can create a high level abstration of the cut-paste algorithm using rotate which would be independent of the paste_location. This algorithm would, however, increase the requirement on the `Iterator` from `LegacyForwardIterator` to `LegacyRandomAccessIterator`.
 ```cpp
-template<typename Iter>                  // Iter models LegacyRandomAccessIterator
+template<typename Iter>   // Iter models LegacyRandomAccessIterator
 Iter cut_paste(Iter cut_start_location, Iter cut_end_location, Iter paste_location)
 {
     if (paste_location < cut_start_location)   // handles left-rotate
