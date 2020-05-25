@@ -7,12 +7,13 @@
 
 In this article we will learn about a simple trick to identify when rotate can be useful and how to use it. But first, let us have a look at the signature of `std::rotate`
 
-    template< class ForwardIt >
-    void rotate( ForwardIt first, ForwardIt n_first, ForwardIt last );      // (until C++11)
+```cpp
+template< class ForwardIt >
+void rotate( ForwardIt first, ForwardIt n_first, ForwardIt last );      // (until C++11)
 
-    template< class ForwardIt >
-    ForwardIt rotate( ForwardIt first, ForwardIt n_first, ForwardIt last ); // (since C++11)
-
+template< class ForwardIt >
+ForwardIt rotate( ForwardIt first, ForwardIt n_first, ForwardIt last ); // (since C++11)
+```
 Unfortunately, the return type of `std::rotate` was `void` until C++11. This shortcoming was noticed and addressed by Stepanov.  
 
 In the book *From Mathematics to Generic Programming*, **Alexander Stepanov** and **Daniel Rose** describe a very simple yet powerful rule called **Law of Useful Return** :
