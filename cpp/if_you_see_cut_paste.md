@@ -211,21 +211,21 @@ If you need a *right-rotate*, just reorder the arguments:
 
 
 We can create a high level abstration of the cut-paste algorithm using rotate which would be independent of the paste_location. This algorithm would, however, increase the requirement on the `Iterator` from `LegacyForwardIterator` to `LegacyRandomAccessIterator`.
+```cpp
+template<typename Iter>                  // Iter models LegacyRandomAccessIterator
+Iter cut_paste(Iter cut_start_location, Iter cut_end_location, Iter paste_location)
+{
+    if (paste_location < cut_start_location)   // handles left-rotate
+        return std::rotate(paste_location, cut_start_location, cut_end_location);
 
-    template<typename Iter>                  // Iter models LegacyRandomAccessIterator
-    Iter cut_paste(Iter cut_start_location, Iter cut_end_location, Iter paste_location)
-    {
-        if (paste_location < cut_start_location)   // handles left-rotate
-            return std::rotate(paste_location, cut_start_location, cut_end_location);
+    if (cut_end_location < paste_location)     // handles right-rotate
+        return std::rotate(cut_start_location, cut_end_location, paste_location);
 
-        if (cut_end_location < paste_location)     // handles right-rotate
-            return std::rotate(cut_start_location, cut_end_location, paste_location);
-
-        // else - no-operation required, there will be no change in the arrangement of data
-        // return the cut_end_location, cause that is where our cursor should be if the operation was done
-        return cut_end_location;
-    }
-
+    // else - no-operation required, there will be no change in the arrangement of data
+    // return the cut_end_location, cause that is where our cursor should be if the operation was done
+    return cut_end_location;
+}
+```
 Does this piece of code seem familiar?  
 Exactly!  
 This is the `slide` algorithm by Sean Parent, presented in his famous C++ Seasoning talk given at GoingNative 2013.  
