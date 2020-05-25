@@ -8,11 +8,11 @@
 In this article we will learn about a simple trick to identify when rotate can be useful and how to use it. But first, let us have a look at the signature of `std::rotate`
 
 ```cpp
-template< class ForwardIt >
-void rotate( ForwardIt first, ForwardIt n_first, ForwardIt last );      // (until C++11)
+template<class ForwardIt>
+void rotate(ForwardIt first, ForwardIt n_first, ForwardIt last);      // (until C++11)
 
-template< class ForwardIt >
-ForwardIt rotate( ForwardIt first, ForwardIt n_first, ForwardIt last ); // (since C++11)
+template<class ForwardIt>
+ForwardIt rotate(ForwardIt first, ForwardIt n_first, ForwardIt last); // (since C++11)
 ```
 Unfortunately, the return type of `std::rotate` was `void` until C++11. This shortcoming was noticed and addressed by Stepanov.  
 
@@ -23,13 +23,13 @@ In the book *From Mathematics to Generic Programming*, **Alexander Stepanov** an
 > This may allow the caller to get some extra work done “for free”.
 
 Therefore, since C++11, `std::rotate` returns an iterator to the new location of the element earlier pointed to by `first`, as it was already computed as a result of carrying out its main task &mdash; even though the return value may eventually be ignored by the caller if not needed.
+```
+Initial orientation:
+(first, .. , n_first, .., last-1, |last|)
 
-    Initial orientation:
-    (first, .. , n_first, .., last-1, |last|)
-
-    Final orientation:
-    (n_first, .., last-1, first, .., |last|) # note that last, as it isn't dereferenceable, is special and does not change its position
-    
+Final orientation:
+(n_first, .., last-1, first, .., |last|) # note that last, as it isn't dereferenceable, is special and does not change its position
+```    
 
 The element pointed to by `first` eventually ends up next to the element pointed to by `last-1`.
 Therefore its new location is:
@@ -47,12 +47,13 @@ So here is a one-liner to remember when `rotate` can be useful:
 (repeat it 3 times - "If you see cut-paste, it is rotate." - and you have already mastered rotate)
 
 For ease of use, we can re-interpret rotate as:
-
-    rotate(ForwardIt first, ForwardIt n_first, ForwardIt last) -> ForwardIt
+```
+rotate(ForwardIt first, ForwardIt n_first, ForwardIt last) -> ForwardIt
+```
 as
-
-    rotate(paste_location, cut_start_location, cut_end_location) -> cursor_location(after pasting)
-
+```
+rotate(paste_location, cut_start_location, cut_end_location) -> cursor_location(after pasting)
+```
 So, if you have a use case where you have to **cut** data and **paste** it somewhere, it can be easily achieved by `rotate`.  
 This power of `rotate` comes from the fact that all the elements cut, move together.
 
@@ -130,22 +131,22 @@ We may rephrase this as => cut `BADOLA` and paste it before the `,`
 **Notice how we used the value returned by the rotate of (step #2) in the rotate of (step #3)**
 
 In code this would look like -
+```cpp
+void swap_firstname_lastname(std::string & name) // in-place swap
+{
+    auto const comma_position = std::find(name.begin(), name.end(), ',');               // step #1
+    auto const cursor_location = std::rotate(name.begin(), comma_position, name.end()); // step #2
+    std::rotate(name.begin(), std::next(name.begin()), cursor_location);                // step #3
+}
 
-    void swap_firstname_lastname(std::string & name) // in-place swap
-    {
-        auto const comma_position = std::find(name.begin(), name.end(), ',');               // step #1
-        auto const cursor_location = std::rotate(name.begin(), comma_position, name.end()); // step #2
-        std::rotate(name.begin(), std::next(name.begin()), cursor_location);                // step #3
-    }
-
-    void test()
-    {
-        auto name = std::string{"ABHINAV,BADOLA"};
-        std::cout << name << '\n';    // ABHINAV,BADOLA
-        swap_firstname_lastname(name);
-        std::cout << name << '\n';    // BADOLA,ABHINAV
-    }
-
+void test()
+{
+    auto name = std::string{"ABHINAV,BADOLA"};
+    std::cout << name << '\n';    // ABHINAV,BADOLA
+    swap_firstname_lastname(name);
+    std::cout << name << '\n';    // BADOLA,ABHINAV
+}
+```
 The application of `std::rotate` is not only limited to string permutations, it may also be used with all the sequenced containers.
 The discussion above applies to `std::vector`, `std::list`, `std::array`, etc. as well.
 
@@ -160,10 +161,12 @@ Let's start by visualizing this in terms of the trick applied in the previous ex
     _____________________________________________________
         ↑                       ↑
         begin_of_items_to_move  end_of_items_to_move
-
-    std::rotate(begin_of_items_to_move, end_of_items_to_move   , paste_location);
-    i.e.
-    std::rotate(std::next(v.begin())  , std::next(v.begin(), 7), v.end()       );
+```cpp
+auto begin_of_items_to_move = std::next(v.begin());
+auto end_of_items_to_move = std::next(v.begin(), 7);
+auto paste_location = v.end();
+auto cursor_location = std::rotate(begin_of_items_to_move, end_of_items_to_move, paste_location);
+```
     _____________________________________________________
     | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11   |
     _____________________________________________________
@@ -182,10 +185,12 @@ Let's start by visualizing this in terms of the trick applied in the previous ex
     _____________________________________________________
                     ↑                       ↑
                     begin_of_items_to_move  end_of_items_to_move
-
-    std::rotate(paste_location, begin_of_items_to_move, end_of_items_to_move     );
-    i.e.
-    std::rotate(v.begin()     , std::next(v.begin(), 4), std::next(v.begin(), 10));
+```cpp
+auto paste_location = v.begin();
+auto begin_of_items_to_move = std::next(v.begin(), 4);
+auto end_of_items_to_move = std::next(v.begin(), 10);
+auto cursor_location = std::rotate(paste_location, begin_of_items_to_move, end_of_items_to_move);
+```
     _____________________________________________________
     | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11   |
     _____________________________________________________
