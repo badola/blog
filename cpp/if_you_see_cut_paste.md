@@ -199,7 +199,7 @@ auto paste_end = std::rotate(cut_begin, cut_end, paste_begin);
                         paste_end    
 
 Using rotate as our *cut-paste* algorithm has a limitation.
-It only works if the *paste_begin* is towards the left of *cut_begin*.
+It only works if the `paste_begin` is towards the left of `cut_begin`.
 
 Essentially, `std::rotate` is a *left-rotate*.
 ```cpp
