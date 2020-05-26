@@ -259,8 +259,8 @@ Let's explore the working of this algorithm visually, focussing in particular, o
     Thus, the new location of the range [cut_begin, cut_end) is given by:
 
 ```cpp
-    auto const updated_cut_begin = paste_begin;
-    auto const updated_cut_end = std::rotate(paste_begin, cut_begin, cut_end);
+auto const updated_cut_begin = paste_begin;
+auto const updated_cut_end = std::rotate(paste_begin, cut_begin, cut_end);
 ```
     _____________________________________________________
     | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11   |
@@ -269,6 +269,12 @@ Let's explore the working of this algorithm visually, focussing in particular, o
     _____________________________________________________
         ↑                   ↑
         updated_cut_begin   updated_cut_end
+                            the new location of the element pointed to by paste_begin
+    
+    It's worthwile to note that we are returning all the postions of interest i.e.
+    1. The updated position of the element pointed to by cut_begin.
+    2. The updated position of the element pointed to by paste_begin, which is the same as
+    position updated_cut_end.
 
     Case #2 (right rotate)
     _____________________________________________________
@@ -283,9 +289,9 @@ Let's explore the working of this algorithm visually, focussing in particular, o
     We begin by reinterpreting this case in terms of a left rotate whereby,
 
 ```cpp
-    auto const l_paste_begin = cut_begin;
-    auto const l_cut_begin = cut_end;
-    auto const l_cut_end = paste_begin;
+auto const l_paste_begin = cut_begin;
+auto const l_cut_begin = cut_end;
+auto const l_cut_end = paste_begin;
 ```
 
     _____________________________________________________
@@ -313,9 +319,12 @@ Let's explore the working of this algorithm visually, focussing in particular, o
 
     { l_paste_end, paste_begin } or more simply by substituting for l_ variables
 ```cpp
-    auto const updated_cut_begin = std::rotate(cut_begin, cut_end, paste_begin);
-    auto const updated_cut_end = paste_begin;
+auto const updated_cut_begin = std::rotate(cut_begin, cut_end, paste_begin);
+auto const updated_cut_end = paste_begin;
 ```
+    Again, we are returning all the positions of interest, namely
+    1. The updated position of the element pointed to by cut_begin.
+    2. The position paste_begin, which is the same as the position updated_cut_end.
 
     Case #3
     _____________________________________________________
