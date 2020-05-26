@@ -274,7 +274,7 @@ auto const updated_cut_end = std::rotate(paste_begin, cut_begin, cut_end);
     It's worthwile to note that we are returning all the postions of interest i.e.
     1. The updated position of the element pointed to by cut_begin.
     2. The updated position of the element pointed to by paste_begin, which is the same as
-    position updated_cut_end.
+       the position updated_cut_end.
 
     Case #2 (right rotate)
     _____________________________________________________
