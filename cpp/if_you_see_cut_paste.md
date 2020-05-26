@@ -235,15 +235,15 @@ auto cut_paste(It cut_begin, It cut_end, It paste_begin)
     }
 
     // else - no-operation required, there will be no change in the relative arrangement of data
-    return { cut_begin, cut_end };(case #3)
+    return { cut_begin, cut_end }; // (case #3)
 }
+```
 
 Does this piece of code seem familiar?  
 Exactly!  
 This is the **slide** algorithm by Sean Parent, presented in his famous C++ Seasoning talk given at GoingNative 2013.  
 You can read more about the slide algorithm at https://www.fluentcpp.com/2018/04/20/ways-reordering-collection-stl/
 
-```
 Let's explore the working of this algorithm visually, focussing in particular, on the return value.
 
     Case #1 (left rotate)
@@ -258,9 +258,10 @@ Let's explore the working of this algorithm visually, focussing in particular, o
     Clearly, paste_begin < cut_begin
     Thus, the new location of the range [cut_begin, cut_end) is given by:
 
+```cpp
     auto const updated_cut_begin = paste_begin;
     auto const updated_cut_end = std::rotate(paste_begin, cut_begin, cut_end);
-
+```
     _____________________________________________________
     | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11   |
     _____________________________________________________
@@ -281,9 +282,11 @@ Let's explore the working of this algorithm visually, focussing in particular, o
     Clearly, cut_end < paste_begin
     We begin by reinterpreting this case in terms of a left rotate whereby,
 
+```cpp
     auto const l_paste_begin = cut_begin;
     auto const l_cut_begin = cut_end;
     auto const l_cut_end = paste_begin;
+```
 
     _____________________________________________________
     | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11   |
@@ -309,8 +312,10 @@ Let's explore the working of this algorithm visually, focussing in particular, o
     This is given by:
 
     { l_paste_end, paste_begin } or more simply by substituting for l_ variables
+```cpp
     auto const updated_cut_begin = std::rotate(cut_begin, cut_end, paste_begin);
     auto const updated_cut_end = paste_begin;
+```
 
     Case #3
     _____________________________________________________
