@@ -243,7 +243,7 @@ You can read more about the slide algorithm at https://www.fluentcpp.com/2018/04
 
 Let's explore the working of this algorithm visually, focussing in particular, on the return value.
 
-Case #1 (left rotate)
+**Case #1 (left rotate)**
 ```
 _____________________________________________________
 | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11   |
@@ -272,7 +272,7 @@ It's worthwile to note that we are returning all the postions of interest i.e.
 2. The updated position of the element pointed to by paste_begin, which is the same as
    the position updated_cut_end.
    
-Case #2 (right rotate)
+**Case #2 (right rotate)**
 ```
 _____________________________________________________
 | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11   |
@@ -316,7 +316,7 @@ Again, we are returning all the positions of interest, namely
 1. The updated position of the element pointed to by cut_begin.
 2. The position paste_begin, which is the same as the position updated_cut_end.
 
-Case #3
+**Case #3**
 ```
 _____________________________________________________
 | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11   |
