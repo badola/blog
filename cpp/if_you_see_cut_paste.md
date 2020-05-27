@@ -182,7 +182,6 @@ auto const paste_end = std::rotate(paste_begin, cut_begin, cut_end);
         cut_begin               cut_end          paste_begin
         
     which needs to be reinterpreted as follows(since std::rotate is, by default, a left rotate):
-    
     _____________________________________________________
     | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11   |
     _____________________________________________________
@@ -244,92 +243,87 @@ You can read more about the slide algorithm at https://www.fluentcpp.com/2018/04
 
 Let's explore the working of this algorithm visually, focussing in particular, on the return value.
 
-    Case #1 (left rotate)
-    _____________________________________________________
-    | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11   |
-    _____________________________________________________
-    | A | B | C | D | E | F | G | H | I | J |  K | end()|
-    _____________________________________________________
-        ↑               ↑                   ↑
-        paste_begin     cut_begin           cut_end
+Case #1 (left rotate)
+```
+_____________________________________________________
+| 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11   |
+_____________________________________________________
+| A | B | C | D | E | F | G | H | I | J |  K | end()|
+_____________________________________________________
+    ↑               ↑                   ↑
+    paste_begin     cut_begin           cut_end
 
-    Clearly, paste_begin < cut_begin
-    Thus, the new location of the range [cut_begin, cut_end) is given by:
-
+Clearly, paste_begin < cut_begin. Thus, the new location of the range [cut_begin, cut_end) is given by:
+_____________________________________________________
+| 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11   |
+_____________________________________________________
+| A | F | G | H | I | J | B | C | D | E |  K | end()|
+_____________________________________________________
+    ↑                   ↑
+    updated_cut_begin   updated_cut_end
+                        the new location of the element pointed to by paste_begin
+```
 ```cpp
 auto const updated_cut_begin = paste_begin;
 auto const updated_cut_end = std::rotate(paste_begin, cut_begin, cut_end);
 ```
-    _____________________________________________________
-    | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11   |
-    _____________________________________________________
-    | A | F | G | H | I | J | B | C | D | E |  K | end()|
-    _____________________________________________________
-        ↑                   ↑
-        updated_cut_begin   updated_cut_end
-                            the new location of the element pointed to by paste_begin
-    
-    It's worthwile to note that we are returning all the postions of interest i.e.
-    1. The updated position of the element pointed to by cut_begin.
-    2. The updated position of the element pointed to by paste_begin, which is the same as
-       the position updated_cut_end.
-
-    Case #2 (right rotate)
-    _____________________________________________________
-    | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11   |
-    _____________________________________________________
-    | A | B | C | D | E | F | G | H | I | J |  K | end()|
-    _____________________________________________________
-        ↑               ↑                   ↑
-        cut_begin       cut_end             paste_begin
-
-    Clearly, cut_end < paste_begin
-    We begin by reinterpreting this case in terms of a left rotate whereby,
-
-```cpp
-auto const l_paste_begin = cut_begin;
-auto const l_cut_begin = cut_end;
-auto const l_cut_end = paste_begin;
+It's worthwile to note that we are returning all the postions of interest i.e.
+1. The updated position of the element pointed to by cut_begin.
+2. The updated position of the element pointed to by paste_begin, which is the same as
+   the position updated_cut_end.
+   
+Case #2 (right rotate)
 ```
+_____________________________________________________
+| 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11   |
+_____________________________________________________
+| A | B | C | D | E | F | G | H | I | J |  K | end()|
+_____________________________________________________
+    ↑               ↑                   ↑
+    cut_begin       cut_end             paste_begin
 
-    _____________________________________________________
-    | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11   |
-    _____________________________________________________
-    | A | B | C | D | E | F | G | H | I | J |  K | end()|
-    _____________________________________________________
-        ↑               ↑                   ↑
-        cut_begin       cut_end             paste_begin
-        l_paste_begin   l_cut_begin         l_cut_end
+Clearly, cut_end < paste_begin. We begin by reinterpreting this case in terms of a left rotate whereby,
+_____________________________________________________
+| 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11   |
+_____________________________________________________
+| A | B | C | D | E | F | G | H | I | J |  K | end()|
+_____________________________________________________
+    ↑               ↑                   ↑
+    cut_begin       cut_end             paste_begin
+    l_paste_begin   l_cut_begin         l_cut_end
 
-    In terms of a left-rotate, the paste_end(l_paste_end) is given by:
-    auto const l_paste_end = std::rotate(l_paste_begin, l_cut_begin, l_cut_end);
+In terms of a left-rotate, the paste_end(l_paste_end) is given by:
+auto const l_paste_end = std::rotate(l_paste_begin, l_cut_begin, l_cut_end);
 
-    _____________________________________________________
-    | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11   |
-    _____________________________________________________
-    | A | F | G | H | I | J | B | C | D | E |  K | end()|
-    _____________________________________________________
-        ↑                   ↑               ↑
-        l_paste_begin       l_paste_end     paste_begin
+_____________________________________________________
+| 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11   |
+_____________________________________________________
+| A | F | G | H | I | J | B | C | D | E |  K | end()|
+_____________________________________________________
+    ↑                   ↑               ↑
+    l_paste_begin       l_paste_end     paste_begin
 
-    What we wish to return is the updated position of the range [cut_begin, cut_end)
-    This is given by:
+What we wish to return is the updated position of the range [cut_begin, cut_end)
+This is given by:
 
-    { l_paste_end, paste_begin } or more simply by substituting for l_ variables
+{ l_paste_end, paste_begin } or more simply by substituting for l_ variables
+```
 ```cpp
 auto const updated_cut_begin = std::rotate(cut_begin, cut_end, paste_begin);
 auto const updated_cut_end = paste_begin;
 ```
-    Again, we are returning all the positions of interest, namely
-    1. The updated position of the element pointed to by cut_begin.
-    2. The position paste_begin, which is the same as the position updated_cut_end.
+Again, we are returning all the positions of interest, namely
+1. The updated position of the element pointed to by cut_begin.
+2. The position paste_begin, which is the same as the position updated_cut_end.
 
-    Case #3
-    _____________________________________________________
-    | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11   |
-    _____________________________________________________
-    | A | F | G | H | I | J | B | C | D | E |  K | end()|
-    _____________________________________________________
-        ↑                   ↑               ↑
-        cut_begin           paste_begin     cut_end
-    This is a no-op as it does not change the relative arrangement of the elements
+Case #3
+```
+_____________________________________________________
+| 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11   |
+_____________________________________________________
+| A | B | C | D | E | F | G | H | I | J |  K | end()|
+_____________________________________________________
+    ↑               ↑                   ↑
+    cut_begin       paste_begin         cut_end
+```
+This is a no-op as it does not change the relative arrangement of the elements
