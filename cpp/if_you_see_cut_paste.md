@@ -14,9 +14,7 @@ void rotate(ForwardIt first, ForwardIt n_first, ForwardIt last);      // (until 
 template<class ForwardIt>
 ForwardIt rotate(ForwardIt first, ForwardIt n_first, ForwardIt last); // (since C++11)
 ```
-Unfortunately, the return type of `std::rotate` was `void` until C++11. This shortcoming was noticed and addressed by Stepanov.  
-
-In the book *From Mathematics to Generic Programming*, **Alexander Stepanov** and **Daniel Rose** describe a very simple yet powerful rule called **Law of Useful Return** :
+Unfortunately, the return type of `std::rotate` was `void` until C++11. This shortcoming was noticed and addressed by Stepanov. In the book *From Mathematics to Generic Programming*, **Alexander Stepanov** and **Daniel Rose** describe a very simple yet powerful rule called **Law of Useful Return** :
 
 > If you’ve already done the work to get some useful result, don’t throw it away.
 > Return it to the caller.
