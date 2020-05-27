@@ -53,7 +53,7 @@ as
 rotate(paste_begin, cut_begin, cut_end) -> paste_end
 ```
 So, if you have a use case where you have to **cut** data and **paste** it somewhere, it can be easily achieved by `rotate`.  
-This power of `rotate` comes from the fact that all the elements cut, move together.
+This power of `rotate` comes from the fact that all the elements cut, move together. However, using rotate as our *cut-paste* algorithm has a limitation - it only works if the `paste_begin` is towards the left of `cut_begin`. Essentially, `std::rotate` is a *left-rotate*.
 
 Let's strengthen our learning by taking an example.  
 Suppose you are given a name in the format => `FirstName,LastName`  
@@ -204,13 +204,7 @@ auto const paste_end = std::rotate(paste_begin, cut_begin, cut_end);
                         ↑
                         paste_end    
 
-Using rotate as our *cut-paste* algorithm has a limitation. It only works if the `paste_begin` is towards the left of `cut_begin`.  
-Essentially, `std::rotate` is a *left-rotate*.
-```cpp
-auto const paste_end = std::rotate(paste_begin, cut_begin, cut_end);
-```
-
-We can create a high level abstration of the cut-paste algorithm using rotate which would be independent of the relative-positioning of `paste_begin` and `[cut_begin, cut_end)`. This algorithm would, however, increase the requirement on the `Iterator` from `LegacyForwardIterator` to `LegacyRandomAccessIterator`.
+As discussed before, using rotate as our *cut-paste* algorithm has a limitation, it only works if the `paste_begin` is towards the left of `cut_begin`. We can create a high level abstration of the cut-paste algorithm using rotate which would be independent of the relative-positioning of `paste_begin` and `[cut_begin, cut_end)`. This algorithm would, however, increase the requirement on the `Iterator` from `LegacyForwardIterator` to `LegacyRandomAccessIterator`.
 ```cpp
 template<typename It>              // It models LegacyRandomAccessIterator
 auto cut_paste(It cut_begin, It cut_end, It paste_begin)
