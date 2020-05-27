@@ -299,7 +299,6 @@ _____________________________________________________
 
 What we wish to return is the updated position of the range [cut_begin, cut_end)
 This is given by:
-
 { l_paste_end, paste_begin } or more simply by substituting for l_ variables
 ```
 ```cpp
