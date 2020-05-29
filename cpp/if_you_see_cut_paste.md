@@ -37,7 +37,7 @@ Therefore its new location is:
     or, in simpler terms
     first + ( last - n_first )
 `first + (last - n_first)` is the value returned by rotate since C++11.  
-The examples below will show, how critical this **Law of Useful Return** can be.
+The examples below will show how critical this **Law of Useful Return** can be.
 
 So here is a one-liner to remember when `rotate` can be useful:
 > **If you see cut-paste, it is rotate.**
@@ -204,7 +204,7 @@ auto const paste_end = std::rotate(paste_begin, cut_begin, cut_end);
                         ↑
                         paste_end    
 
-As discussed before, using rotate as our *cut-paste* algorithm has a limitation, it only works if the `paste_begin` is towards the left of `cut_begin`. We can create a high level abstration of the cut-paste algorithm using rotate which would be independent of the relative-positioning of `paste_begin` and `[cut_begin, cut_end)`. This algorithm would, however, increase the requirement on the `Iterator` from `LegacyForwardIterator` to `LegacyRandomAccessIterator`.
+As discussed before, using rotate as our *cut-paste* algorithm has a limitation, it only works if the `paste_begin` is towards the left of `cut_begin`. We can create a high level abstraction of the cut-paste algorithm using rotate which would be independent of the relative-positioning of `paste_begin` and `[cut_begin, cut_end)`. This algorithm would, however, increase the requirement on the `Iterator` from `LegacyForwardIterator` to `LegacyRandomAccessIterator`.
 ```cpp
 template<typename It>              // It models LegacyRandomAccessIterator
 auto cut_paste(It cut_begin, It cut_end, It paste_begin)
