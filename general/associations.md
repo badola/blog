@@ -5,7 +5,7 @@ Associations are techniques for object composition.
 
 |Attribute|Composition           |Aggregation      |Dependency                |Inheritance       |Realize/Implementation|
 |---------|----------------------|-----------------|--------------------------|------------------|----------------------|
-|Lifetime |owner's lifetime      |independent      |independent               |derived's lifetime|independent           |
+|Lifetime |owner's lifetime      |independent      |independent               |derived's lifetime|implementor's lifetime|
 |Relation |part-of               |has              |depends-on                |is-a              |implements            |
 |Generally|object                |collection       |service                   |basic-attributes  |feature               |
 |Example  |battery part-of laptop|library has books|fan depends-on electricity|car is-a Vehicle  |baleno implements power windows|
