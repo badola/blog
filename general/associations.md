@@ -7,5 +7,5 @@ Associations are techniques for object composition.
 |---------|----------------------|-----------------|--------------------------|------------------|----------------------|
 |Lifetime |Owner's Lifetime      |Independent      |Independent               |Derived's Lifetime|Independent           |
 |Relation |part-of               |has              |depends-on                |is-a              |     ???              |
-|Generally|Object                |Collection       |Service                   |Basic-Attributes  |Instance/Extension    |
+|Generally|Object                |Collection       |Service                   |Basic-Attributes  |Feature               |
 |Example  |battery part-of laptop|Library has books|fan depends-on electricity|Car is-a Vehicle  |Baleno is-a Car       |
