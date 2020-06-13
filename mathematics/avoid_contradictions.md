@@ -14,8 +14,7 @@ by using the following argument:
 
 In C++, we define `!=` and `==` this as - 
 ```cpp
-class T
-{
-
-};
+inline bool operator==(const X& lhs, const X& rhs){ /* do actual comparison */ }
+inline bool operator!=(const X& lhs, const X& rhs){ return !(lhs == rhs); }
 ```
+Notice, how we use the `==` in computing `!=`. This approach is important to avoid contradictions.
