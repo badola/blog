@@ -11,3 +11,11 @@ by using the following argument:
 1. We know that "All lemons are yellow", as it has been assumed to be true.
 1. Therefore, the two-part statement "All lemons are yellow OR unicorns exist” must also be true, since the first part is true.
 1. However, since we know that "Not all lemons are yellow" (as this has been assumed), the first part is false, and hence the second part must be true, i.e., unicorns exist.
+
+In C++, we define `!=` and `==` this as - 
+```cpp
+class T
+{
+
+};
+```
