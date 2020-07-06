@@ -66,7 +66,7 @@ In C++:
 auto getRandoms(R r, int N) -> std::pair<std::vector<double>, R>
 ```
 
-First naive attempt - 
+First lets create the test harness - 
 ```cpp
 #include <iostream>
 #include <string>
@@ -97,20 +97,6 @@ struct R
 };
 
 
-auto getRandoms(int N, R r)
-    -> std::pair<std::vector<double>, R>
-{
-    auto random_numbers = std::vector<double>{};
-    auto r_last = r;
-    while(N-- > 0)
-    {
-        auto [random_val, r_next] = r_last.next();
-        random_numbers.push_back(std::move(random_val));
-        r_last = r_next;
-    }
-    return {std::move(random_numbers), r_last};
-}
-
 int main()
 {
     std::vector<std::string> vec = {
@@ -124,5 +110,43 @@ int main()
 }
 ```
 
+First naive attempt at **getRandoms**:
+```cpp
+auto getRandoms(int N, R r)
+    -> std::pair<std::vector<double>, R>
+{
+    auto random_numbers = std::vector<double>{};
+    auto r_last = r;
+    while(N-- > 0)
+    {
+        auto [random_val, r_next] = r_last.next();
+        random_numbers.push_back(std::move(random_val));
+        r_last = r_next;
+    }
+    return {std::move(random_numbers), r_last};
+}
+```
+
 This implementation of **getRandoms** modifies states... many states.
 Now lets assume *everything* is `const`. LITERALLY everything in your sight.
+If we try to do it assuming that.. then a lot of structural properties will come on the surface, we'll be able to see how general the solution is!
+
+So lets try again, considering everything is `const`
+```cpp
+template<typename T>
+auto concat(T const & t, std::vector<T> u_copy) -> std::vector<T> {
+    u_copy.insert(u_copy.begin(), t);
+    return u_copy;
+}
+
+auto getRandoms(int const & N, R const & r)
+    -> std::pair<std::vector<double>, R>
+{
+    if (N <= 0)
+        return {std::vector<double>{}, r};
+        
+    auto const [r_value, next_r] = r.next();
+    auto const [init, next_r2] = getRandoms(N - 1, next_r);
+    return { concat(r_value, init), next_r2};
+}
+```
