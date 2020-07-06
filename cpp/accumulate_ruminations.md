@@ -160,3 +160,22 @@ Now, are you able to see the general structure of the solution which applies to 
 
 The `concat` function is just there to fill the gap of the missing constructor. Else, we could have used things like:
 `vector<double> item_N_plus_1(item, items_N);`
+
+
+The constraints were added to guide us to see the general structure of the problem.. **std::accumulate**
+
+So lets now try to remodel the attempt at solving this problem using `std::accumulate`
+And finally - 
+```cpp
+auto getRandoms(int N, R r)-> std::pair<std::vector<double>, R>
+{
+    std::vector<int> _(N);
+    return std::accumulate(_.begin(), _.end(), std::make_pair(std::vector<double>{}, r), [](auto acc, auto _) {
+        auto [v, r] = acc;
+        auto [d, r1] = r.next();
+        v.push_back(d); // this step is mutating, as we dont have the required constructor support: imagine it to be: vector<double> v1 { v, d };
+        return std::make_pair(v, r1);
+    });
+}
+```
+It's completely natural. **std::accumulate** is the function which solves **all such problems**.
