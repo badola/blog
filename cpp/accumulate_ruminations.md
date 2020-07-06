@@ -150,3 +150,13 @@ auto getRandoms(int const & N, R const & r)
     return { concat(r_value, init), next_r2};
 }
 ```
+Better. That satisfies all the constraints (assuming `concat` is just there because of the missing constructor).
+We implemented both versions (mutating and non-mutating), so please tell us your experience...what did you feel about going from mutating solution to non-mutating one.. 
+as in how your brain was forced to rethink the structure of the solution..
+
+Now, are you able to see the general structure of the solution which applies to hundreds of other problems which may seen unrelated at first? There is one function in C++ stdlib that does it. Identify it!
+
+ `u_copy` is modified. So it fits the constraint that everything should be `const`?  
+
+The `concat` function is just there to fill the gap of the missing constructor. Else, we could have used things like:
+`vector<double> item_N_plus_1(item, items_N);`
