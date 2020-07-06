@@ -179,3 +179,20 @@ auto getRandoms(int N, R r)-> std::pair<std::vector<double>, R>
 }
 ```
 It's completely natural. **std::accumulate** is the function which solves **all such problems**.
+
+But we have not discussed the *properties* of the problems which can be solved by this function. *How* exactly do we identify other problems which is similar to this problem. Summing or multiplying are easier to identify, as we often see those examples. However, this random number problem appeared so *different* in the beginning, yet turned out to be similar to *summing* problems. 
+
+So basically any operation that takes a seed value?  
+Yes. That's the crux, though *seed* seems to be a very specific term, often used in the context of random number generators. But in general, yes, anything that *depends* on the previous sub-solution. That is, if you compute something which depends on the result of the computation of the same *smaller* problem... more like... *(N + 1)th step* depends on *Nth step*.
+
+Is this basically the trick used to make a recursive call, tail recursive?  
+Yes. Recursion is one structure that satisfies this. An astute observer will see that `std::accumulate` (or something similar) can be used to solve all recursive problems.
+
+`std::accumulate` can be used to -
+1. Find the nth fibonacci number
+1. Get all cpp files given a directory or a list of directories
+1. Reverse a string
+1. Join a list of string
+1. Any data transformation that requires left-fold or right-fold
+
+We are **not** implying that you should use accumulate for all such problems simply because it can solve it. There are more specific algorithms designed to solve things efficiently. But knowing it as one possible solution is helpful, so you can choose it if no other easy solution available in the sight.
